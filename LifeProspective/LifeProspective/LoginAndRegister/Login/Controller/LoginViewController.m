@@ -11,6 +11,7 @@
 #import "LoginAndRegisterTextFieldHandler.h"
 #import "LifeViewController.h"
 #import <BmobSDK/Bmob.h>
+#import "AppDelegate.h"
 
 @interface LoginViewController ()
 
@@ -28,12 +29,19 @@
         
         if (!error) {
             NSLog(@"成功");
-            LifeViewController *lifeVC = [[LifeViewController alloc] init];
-            UINavigationController *lifeNaviVC = [[UINavigationController alloc] initWithRootViewController:lifeVC];
-            [self presentViewController:lifeNaviVC animated:YES completion:^{
+            [self dismissViewControllerAnimated:YES completion:^{
+                AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+                [appDelegate creatStatusBarView];
                 
-                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasLogin"];
             }];
+//            appDelegate.window.rootViewController = appDelegate.drawerController;
+//            LifeViewController *lifeVC = [[LifeViewController alloc] init];
+//            UINavigationController *lifeNaviVC = [[UINavigationController alloc] initWithRootViewController:lifeVC];
+//            [self presentViewController:lifeNaviVC animated:YES completion:^{
+//                
+//                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasLogin"];
+//            }];
+            
         } else {
             NSLog(@"%@", error.description);
         

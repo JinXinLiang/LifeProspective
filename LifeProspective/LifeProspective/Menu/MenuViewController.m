@@ -8,6 +8,9 @@
 
 #import "MenuViewController.h"
 #import "UIColor+AddColor.h"
+#import <BmobSDK/BmobUser.h>
+#import "LoginViewController.h"
+#import "AppDelegate.h"
 
 @interface MenuViewController ()<UITableViewDataSource, UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *menuTableView;
@@ -80,6 +83,16 @@
 
     cell.imageView.image = self.menuImageArr[indexPath.row];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [BmobUser logout];
+    LoginViewController *loginVC = [[LoginViewController alloc] init];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:loginVC] animated:YES completion:^{
+        AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+        [appDelegate.statusBarView removeFromSuperview];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

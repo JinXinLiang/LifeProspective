@@ -15,6 +15,8 @@
 #import "Article.h"
 #import "CellForArticle.h"
 #import "TabView.h"
+#import "LoginViewController.h"
+#import "AppDelegate.h"
 
 
 
@@ -47,11 +49,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"neusoft";
-    [self setupRefreshWith:self.lifeTable];
-    
-    TabView *tabView = [[TabView alloc] initWithFrame:CGRectMake(0, self.lifeTable.frame.origin.y + self.lifeTable.frame.size.height, [UIScreen mainScreen].bounds.size.width, 44)];
-    [self.view addSubview:tabView];
-
+    BOOL hasLogin = [[NSUserDefaults standardUserDefaults] boolForKey:@"hasLogin"];
+    if (!hasLogin) {
+        LoginViewController *loginVC = [[LoginViewController alloc] init];
+        
+        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:loginVC] animated:YES completion:^{
+            AppDelegate *delegate = [UIApplication sharedApplication].delegate;
+            [delegate.statusBarView removeFromSuperview];
+        }];
+        
+    }
+        
+        [self setupRefreshWith:self.lifeTable];
+        
+        TabView *tabView = [[TabView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, [UIScreen mainScreen].bounds.size.width, 44)];
+        [self.view addSubview:tabView];
 }
 
 - (void)getData

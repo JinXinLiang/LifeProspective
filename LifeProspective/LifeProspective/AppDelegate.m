@@ -32,66 +32,63 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-    BOOL hasLogin = [[NSUserDefaults standardUserDefaults] boolForKey:@"hasLogin"];
-    if (hasLogin) {
-        // 左抽屉
-        self.menuVC = [[MenuViewController alloc] init];
+    
+    // 左抽屉
+    self.menuVC = [[MenuViewController alloc] init];
+    
+    //// 暂时用的主界面
+    
+    LifeViewController *lifeVC = [[LifeViewController alloc] init];
+    // 将主页面加到视图控制器中
+    UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:lifeVC];
+    
+    // 创建并初始化抽屉视图控制器给他一个主视图, 和左视图
+    self.drawerController = [[MMDrawerController alloc]
+                             initWithCenterViewController:navigationController
+                             leftDrawerViewController:self.menuVC
+                             rightDrawerViewController:nil];
+    // 是否显示阴影, 否
+    [self.drawerController setShowsShadow:NO];
+    
+    
+    // 设置左视图宽度
+    [self.drawerController setMaximumLeftDrawerWidth:SCREENWIDTH / 4 + 5];
+    // 设置打开抽屉的状态为全部
+    [self.drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    // 设置关闭抽屉的状态效果为全部
+    [self.drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    
+    // 设置抽屉的视觉状态的block
+    [self.drawerController
+     setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
+         MMDrawerControllerDrawerVisualStateBlock block;
+         block = [[MMExampleDrawerVisualStateManager sharedManager]
+                  drawerVisualStateBlockForDrawerSide:drawerSide];
+         if(block){
+             block(drawerController, drawerSide, percentVisible);
+         }
+     }];
+    
+    self.window.rootViewController = self.drawerController;
+    
+    
+    [self creatStatusBarView];
 
-        //// 暂时用的主界面
-
-        LifeViewController *lifeVC = [[LifeViewController alloc] init];
-        // 将主页面加到视图控制器中
-        UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:lifeVC];
-        
-        // 创建并初始化抽屉视图控制器给他一个主视图, 和左视图
-        self.drawerController = [[MMDrawerController alloc]
-                                 initWithCenterViewController:navigationController
-                                 leftDrawerViewController:self.menuVC
-                                 rightDrawerViewController:nil];
-        // 是否显示阴影, 否
-        [self.drawerController setShowsShadow:NO];
-        
-       
-        // 设置左视图宽度
-        [self.drawerController setMaximumLeftDrawerWidth:SCREENWIDTH / 4 + 5];
-        // 设置打开抽屉的状态为全部
-        [self.drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
-        // 设置关闭抽屉的状态效果为全部
-        [self.drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
-
-        // 设置抽屉的视觉状态的block
-        [self.drawerController
-         setDrawerVisualStateBlock:^(MMDrawerController *drawerController, MMDrawerSide drawerSide, CGFloat percentVisible) {
-             MMDrawerControllerDrawerVisualStateBlock block;
-             block = [[MMExampleDrawerVisualStateManager sharedManager]
-                      drawerVisualStateBlockForDrawerSide:drawerSide];
-             if(block){
-                 block(drawerController, drawerSide, percentVisible);
-             }
-         }];
-        
-        self.window.rootViewController = self.drawerController;
-        UIView *statusBarView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH + 10, 20)];
-        
-        statusBarView.backgroundColor=[UIColor lifeBlueColor];
-        statusBarView.layer.shadowOffset = CGSizeMake(-5, 3);
-        statusBarView.layer.shadowOpacity = 0.1;
-        statusBarView.layer.shadowColor = [UIColor blackColor].CGColor;
-        [self.window addSubview:statusBarView];
-        
-    } else {
-        
-        LoginViewController *loginVC = [[LoginViewController alloc] init];
-        
-        self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:loginVC];
-        
-    }
     
    
    
     
     
     return YES;
+}
+
+- (void)creatStatusBarView {
+    self.statusBarView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH + 10, 20)];
+    self.statusBarView.backgroundColor=[UIColor lifeBlueColor];
+    self.statusBarView.layer.shadowOffset = CGSizeMake(-5, 3);
+    self.statusBarView.layer.shadowOpacity = 0.1;
+    self.statusBarView.layer.shadowColor = [UIColor blackColor].CGColor;
+    [self.window addSubview:self.statusBarView];
 }
 
 

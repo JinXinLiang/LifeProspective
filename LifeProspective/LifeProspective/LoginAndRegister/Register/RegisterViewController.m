@@ -18,7 +18,7 @@
 @property (strong, nonatomic) IBOutlet UITextField *email;
 @property (strong, nonatomic) IBOutlet UIButton *userPhoto;
 
-
+@property (nonatomic, assign)BOOL hasUserPhoto;
 
 @end
 
@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    self.hasUserPhoto = NO;
     
     self.userPhoto.layer.cornerRadius = 50;
     
@@ -51,26 +51,53 @@
     [user setUserName:self.userName.text];
     [user setPassword:self.password.text];
     [user setEmail:self.email.text];
+    if (self.hasUserPhoto) {
+        
+        BmobFile *userPhoto = [[BmobFile alloc] initWithFileName:[NSString stringWithFormat:@"%@.png", self.userName.text] withFileData:UIImagePNGRepresentation([self.userPhoto backgroundImageForState:UIControlStateNormal])];
+        [userPhoto saveInBackground:^(BOOL isSuccessful, NSError *error) {
+            //如果文件保存成功，则把文件添加到filetype列
+            if (isSuccessful) {
+                [user setObject:userPhoto.url  forKey:@"userPhoto"];
+                //打印file文件的url地址
+                NSLog(@"file1 url %@",userPhoto.url);
+                [user signUpInBackgroundWithBlock:^(BOOL isSuccessful, NSError *error) {
+                    
+                    if (isSuccessful) {
+                        
+                        [self saveUserInfo];
+                        [self.navigationController popViewControllerAnimated:YES];
+                    } else {
+                        NSLog(@"signUp error:%@", error.description);
+                    }
+                    
+                }];
+                
+            }else{
+                //进行处理
+                NSLog(@"error:%@", error.description);
+            }
+        }];
+    } else {
+        [user signUpInBackgroundWithBlock:^(BOOL isSuccessful, NSError *error) {
+            if (isSuccessful) {
+                
+                [self saveUserInfo];
+                [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                NSLog(@"signUp error:%@", error.description);
+            }
+        }];
+    }
     
-    BmobFile *userPhoto = [[BmobFile alloc] initWithFileName:[NSString stringWithFormat:@"%@.png", self.userName.text] withFileData:UIImagePNGRepresentation([self.userPhoto backgroundImageForState:UIControlStateNormal])];
-    [userPhoto saveInBackground:^(BOOL isSuccessful, NSError *error) {
-        //如果文件保存成功，则把文件添加到filetype列
-        if (isSuccessful) {
-            [user setObject:userPhoto.url  forKey:@"userPhoto"];
-            //打印file文件的url地址
-            NSLog(@"file1 url %@",userPhoto.url);
-            [user signUpInBackground];
-            NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-            [userDefault setBool:NO forKey:@"hasLogin"];
-            [userDefault setObject:self.userName.text forKey:@"userName"];
-            [userDefault setObject:self.password.text forKey:@"password"];
-            [userDefault synchronize];
-        }else{
-            //进行处理
-            NSLog(@"error:%@", error.description);
-        }
-    }];
-    
+}
+
+- (void)saveUserInfo
+{
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    [userDefault setBool:NO forKey:@"hasLogin"];
+    [userDefault setObject:self.userName.text forKey:@"userName"];
+    [userDefault setObject:self.password.text forKey:@"password"];
+    [userDefault synchronize];
 }
 
 - (void)backBarButtonAction:(UIBarButtonItem *)button{
@@ -99,6 +126,7 @@
     self.userPhoto.layer.borderWidth = 2;
     
     [self.userPhoto setTitle:nil forState:UIControlStateNormal];
+    self.hasUserPhoto = YES;
     [self.userPhoto setBackgroundImage:mediaPicker.editMode == FSEditModeCircular? mediaInfo.circularEditedImage:mediaInfo.editedImage forState:UIControlStateNormal];
 }
 

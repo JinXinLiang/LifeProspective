@@ -14,6 +14,9 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic, strong) MMDrawerController * drawerController;
+@property (nonatomic, strong) UIView *statusBarView;
 
+
+- (void)creatStatusBarView;
 @end
 
