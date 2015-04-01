@@ -30,8 +30,8 @@
         if (!error) {
             NSLog(@"成功");
             [self dismissViewControllerAnimated:YES completion:^{
-                AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
-                [appDelegate creatStatusBarView];
+//                AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+//                [appDelegate creatStatusBarView];
                 
             }];
 //            appDelegate.window.rootViewController = appDelegate.drawerController;

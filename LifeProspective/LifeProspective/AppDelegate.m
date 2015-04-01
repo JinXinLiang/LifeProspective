@@ -72,7 +72,7 @@
     self.window.rootViewController = self.drawerController;
     
     
-    [self creatStatusBarView];
+//    [self creatStatusBarView];
 
     
    
