@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="ifj-22-hcp">
-                    <rect key="frame" x="15" y="0.0" width="570" height="536"/>
+                    <rect key="frame" x="15" y="0.0" width="570" height="492"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="RaB-Zc-t6j"/>
@@ -26,7 +26,7 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="ifj-22-hcp" secondAttribute="bottom" id="SaI-dz-ICD"/>
+                <constraint firstAttribute="bottom" secondItem="ifj-22-hcp" secondAttribute="bottom" constant="44" id="SaI-dz-ICD"/>
                 <constraint firstAttribute="trailing" secondItem="ifj-22-hcp" secondAttribute="trailing" constant="15" id="eKw-ax-O2J"/>
                 <constraint firstItem="ifj-22-hcp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="f9q-eW-dOW"/>
                 <constraint firstItem="ifj-22-hcp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="jXh-Cz-SKU"/>

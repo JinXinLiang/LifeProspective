@@ -14,6 +14,7 @@
 #import "CellFactory.h"
 #import "Article.h"
 #import "CellForArticle.h"
+#import "TabView.h"
 
 
 
@@ -47,6 +48,9 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"neusoft";
     [self setupRefreshWith:self.lifeTable];
+    
+    TabView *tabView = [[TabView alloc] initWithFrame:CGRectMake(0, self.lifeTable.frame.origin.y + self.lifeTable.frame.size.height, [UIScreen mainScreen].bounds.size.width, 44)];
+    [self.view addSubview:tabView];
 
 }
 

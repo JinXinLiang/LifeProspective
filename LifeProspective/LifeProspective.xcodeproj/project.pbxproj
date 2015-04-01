@@ -42,6 +42,7 @@
 		738456491ABB22AD00E42EAA /* menuIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 738456441ABB22AD00E42EAA /* menuIcon.png */; };
 		7384564A1ABB22AD00E42EAA /* menuMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 738456451ABB22AD00E42EAA /* menuMap.png */; };
 		7384564B1ABB22AD00E42EAA /* menuUsers.png in Resources */ = {isa = PBXBuildFile; fileRef = 738456461ABB22AD00E42EAA /* menuUsers.png */; };
+		738878301ACB9EED00DA4767 /* TabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7388782F1ACB9EED00DA4767 /* TabView.m */; };
 		73BEAFCB1AB809B200B6AF9C /* LoginAndRegisterTextFieldHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 73BEAFCA1AB809B200B6AF9C /* LoginAndRegisterTextFieldHandler.m */; };
 		73EB96231AB9E8FF009F38F9 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73EB96211AB9E8FF009F38F9 /* MenuViewController.m */; };
 		73EB96241AB9E8FF009F38F9 /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73EB96221AB9E8FF009F38F9 /* MenuViewController.xib */; };
@@ -117,6 +118,8 @@
 		738456441ABB22AD00E42EAA /* menuIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuIcon.png; sourceTree = "<group>"; };
 		738456451ABB22AD00E42EAA /* menuMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuMap.png; sourceTree = "<group>"; };
 		738456461ABB22AD00E42EAA /* menuUsers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuUsers.png; sourceTree = "<group>"; };
+		7388782E1ACB9EED00DA4767 /* TabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabView.h; sourceTree = "<group>"; };
+		7388782F1ACB9EED00DA4767 /* TabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabView.m; sourceTree = "<group>"; };
 		73BEAFC91AB809B200B6AF9C /* LoginAndRegisterTextFieldHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginAndRegisterTextFieldHandler.h; sourceTree = "<group>"; };
 		73BEAFCA1AB809B200B6AF9C /* LoginAndRegisterTextFieldHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginAndRegisterTextFieldHandler.m; sourceTree = "<group>"; };
 		73EB96201AB9E8FF009F38F9 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
@@ -339,6 +342,8 @@
 			isa = PBXGroup;
 			children = (
 				73EB96251AB9E92E009F38F9 /* LifeViewController.h */,
+				7388782E1ACB9EED00DA4767 /* TabView.h */,
+				7388782F1ACB9EED00DA4767 /* TabView.m */,
 				73EB96261AB9E92E009F38F9 /* LifeViewController.m */,
 				738119EE1AC8E096007B0A4D /* CellForArticle.h */,
 				738119EF1AC8E096007B0A4D /* CellForArticle.m */,
@@ -546,6 +551,7 @@
 				73EB96231AB9E8FF009F38F9 /* MenuViewController.m in Sources */,
 				73EB962D1AB9E9DC009F38F9 /* UIColor+AddColor.m in Sources */,
 				732998691AA6D07500C6DD0E /* BaseViewController.m in Sources */,
+				738878301ACB9EED00DA4767 /* TabView.m in Sources */,
 				73BEAFCB1AB809B200B6AF9C /* LoginAndRegisterTextFieldHandler.m in Sources */,
 				732998321AA6B6B300C6DD0E /* main.m in Sources */,
 				738456401ABB1DFC00E42EAA /* LoginAndRegisterBaseViewController.m in Sources */,

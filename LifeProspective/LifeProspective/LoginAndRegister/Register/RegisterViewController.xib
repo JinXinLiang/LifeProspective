@@ -57,6 +57,9 @@
                     <state key="normal" backgroundImage="register">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="registerButtonAction:" destination="-1" eventType="touchUpInside" id="mDW-SU-sz4"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.88235294117647056" green="0.90196078431372551" blue="0.90588235294117647" alpha="1" colorSpace="calibratedRGB"/>

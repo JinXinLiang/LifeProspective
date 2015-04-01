@@ -66,7 +66,7 @@
 {
     [super layoutSubviews];
     self.articleImageView.frame = CGRectMake(0, 0, self.frame.size.width, 155);
-    self.blueView.frame = CGRectMake(0, 155, self.frame.size.width, 5);
+    self.blueView.frame = CGRectMake(0, 155, self.frame.size.width, 3);
     [self.titleLabel sizeToFit];
     self.titleLabel.frame = CGRectMake(10, 165, self.frame.size.width - 10, 25);
 //    self.dateLabel.frame = CGRectMake(10, 185, self.frame.size.width - 10, 20);

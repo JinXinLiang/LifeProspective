@@ -9,6 +9,7 @@
 #import "RegisterViewController.h"
 
 #import "FSMediaPicker.h"
+#import <BmobSDK/Bmob.h>
 
 
 @interface RegisterViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, FSMediaPickerDelegate>
@@ -41,6 +42,33 @@
     [self.textFieldHandler instanceLoginUserTextField:self.password WithType:passwordType];
     [self.textFieldHandler instanceLoginUserTextField:self.email WithType:emailType];
  
+}
+- (IBAction)registerButtonAction:(id)sender {
+    NSLog(@"button:%@", [self.userPhoto backgroundImageForState:UIControlStateNormal]);
+    
+    NSLog(@"user:%@", [self.userName.text dataUsingEncoding:NSUTF8StringEncoding]);
+    BmobUser *user = [[BmobUser alloc] init];
+    [user setUserName:self.userName.text];
+    [user setPassword:self.password.text];
+    [user setEmail:self.email.text];
+    
+    BmobFile *userPhoto = [[BmobFile alloc] initWithFileName:[NSString stringWithFormat:@"%@.png", self.userName.text] withFileData:UIImagePNGRepresentation([self.userPhoto backgroundImageForState:UIControlStateNormal])];
+    [userPhoto saveInBackground:^(BOOL isSuccessful, NSError *error) {
+        //如果文件保存成功，则把文件添加到filetype列
+        if (isSuccessful) {
+            [user setObject:userPhoto  forKey:@"userPhoto"];
+            //打印file文件的url地址
+            NSLog(@"file1 url %@",userPhoto.url);
+            [user signUpInBackground];
+            [[NSUserDefaults standardUserDefaults] setObject:self.userName.text forKey:@"userName"];
+            [[NSUserDefaults standardUserDefaults] setObject:self.password forKey:@"password"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }else{
+            //进行处理
+            NSLog(@"error:%@", error.description);
+        }
+    }];
+    
 }
 
 - (void)backBarButtonAction:(UIBarButtonItem *)button{

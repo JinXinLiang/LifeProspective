@@ -33,7 +33,7 @@
     [self.window makeKeyAndVisible];
     
     BOOL hasLogin = [[NSUserDefaults standardUserDefaults] boolForKey:@"hasLogin"];
-    if (!hasLogin) {
+    if (hasLogin) {
         // 左抽屉
         self.menuVC = [[MenuViewController alloc] init];
 
