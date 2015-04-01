@@ -9,6 +9,8 @@
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
 #import "LoginAndRegisterTextFieldHandler.h"
+#import "LifeViewController.h"
+#import <BmobSDK/Bmob.h>
 
 @interface LoginViewController ()
 
@@ -21,11 +23,37 @@
 
 @implementation LoginViewController
 
+- (IBAction)loginButtonAction:(id)sender {
+    [BmobUser loginWithUsernameInBackground:self.userName.text password:self.password.text block:^(BmobUser *user, NSError *error) {
+        
+        if (!error) {
+            NSLog(@"成功");
+            LifeViewController *lifeVC = [[LifeViewController alloc] init];
+            UINavigationController *lifeNaviVC = [[UINavigationController alloc] initWithRootViewController:lifeVC];
+            [self presentViewController:lifeNaviVC animated:YES completion:^{
+                
+                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hasLogin"];
+            }];
+        } else {
+            NSLog(@"%@", error.description);
+        
+        }
+    }];
+}
+
 - (IBAction)registerButtonAction:(id)sender {
     RegisterViewController *registerVC = [[RegisterViewController alloc] init];
     [self.navigationController pushViewController:registerVC animated:YES];
     
     
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    self.userName.text = [userDefault objectForKey:@"userName"];
+    self.password.text = [userDefault objectForKey:@"password"];
 }
 
 - (void)viewDidLoad {

@@ -56,13 +56,15 @@
     [userPhoto saveInBackground:^(BOOL isSuccessful, NSError *error) {
         //如果文件保存成功，则把文件添加到filetype列
         if (isSuccessful) {
-            [user setObject:userPhoto  forKey:@"userPhoto"];
+            [user setObject:userPhoto.url  forKey:@"userPhoto"];
             //打印file文件的url地址
             NSLog(@"file1 url %@",userPhoto.url);
             [user signUpInBackground];
-            [[NSUserDefaults standardUserDefaults] setObject:self.userName.text forKey:@"userName"];
-            [[NSUserDefaults standardUserDefaults] setObject:self.password forKey:@"password"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+            [userDefault setBool:NO forKey:@"hasLogin"];
+            [userDefault setObject:self.userName.text forKey:@"userName"];
+            [userDefault setObject:self.password.text forKey:@"password"];
+            [userDefault synchronize];
         }else{
             //进行处理
             NSLog(@"error:%@", error.description);
