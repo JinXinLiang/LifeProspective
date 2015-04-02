@@ -64,6 +64,18 @@
         
         TabView *tabView = [[TabView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, [UIScreen mainScreen].bounds.size.width, 44)];
         [self.view addSubview:tabView];
+    
+    NSDictionary *views = @{@"view":self.view, @"tabView":tabView};
+    NSDictionary *metrics = @{@"LeftStep":@0, @"BoomStep":@0, @"Width":[NSNumber numberWithFloat:self.view.frame.size.width], @"Height":@"44", @"VStep":@20, @"HStep":@20};
+    NSString *vLayoutString = @"V:|-TopStep-[backgroundView(==Width)]-VStep-[textInfoLabel(>=20)]";
+    NSArray *vLayoutArray = [NSLayoutConstraint constraintsWithVisualFormat:vLayoutString options:0 metrics:metrics views:views];
+    
+    NSString *hLayoutstring = @"H:|-LeftStep-[backgroundView(==Height)]-HStep-[textInfoLabel(==100)]";
+    NSArray *hLayoutArray = [NSLayoutConstraint constraintsWithVisualFormat:hLayoutstring options:0 metrics:metrics views:views];
+    
+    [self.view addConstraints:vLayoutArray];
+    [self.view addConstraints:hLayoutArray];
+    
 }
 
 - (void)getData

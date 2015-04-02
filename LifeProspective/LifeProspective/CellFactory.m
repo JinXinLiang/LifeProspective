@@ -20,6 +20,7 @@
     
     BaseCell *cell = [[class alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([dataModel class])];
     
+    
     return cell;
 }
 

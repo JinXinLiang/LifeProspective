@@ -38,6 +38,7 @@
         self.lifeBtn.backgroundColor = [UIColor lifeBlueColor];
         self.lifeBtn.clipsToBounds = YES;
         [self addSubview:self.lifeBtn];
+        
     }
     return self;
 }

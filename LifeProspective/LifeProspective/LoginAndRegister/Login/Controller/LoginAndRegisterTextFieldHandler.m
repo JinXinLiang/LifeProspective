@@ -66,7 +66,6 @@
 
 - (void)setTextField:(UITextField *)textField withState:(NSString *)state AndType:(TextFieldType)textFieldType{
     
-    
     NSArray *imageNameArr = self.imageDic[state];
     NSString *imageName = nil;
     switch (textFieldType) {
@@ -85,8 +84,6 @@
         default:
             break;
     }
-    
-    
     
     UIImage *rightImage = [UIImage imageNamed:imageName];
     UIImageView *rightView = nil;
