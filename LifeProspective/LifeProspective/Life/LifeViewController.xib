@@ -13,11 +13,11 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+            <rect key="frame" x="0.0" y="64" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="ifj-22-hcp">
-                    <rect key="frame" x="15" y="0.0" width="570" height="492"/>
+                    <rect key="frame" x="15" y="64" width="570" height="492"/>
                     <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="RaB-Zc-t6j"/>
@@ -29,11 +29,11 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="ifj-22-hcp" secondAttribute="bottom" constant="44" id="SaI-dz-ICD"/>
                 <constraint firstAttribute="trailing" secondItem="ifj-22-hcp" secondAttribute="trailing" constant="15" id="eKw-ax-O2J"/>
-                <constraint firstItem="ifj-22-hcp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="f9q-eW-dOW"/>
+                <constraint firstItem="ifj-22-hcp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="f9q-eW-dOW"/>
                 <constraint firstItem="ifj-22-hcp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="jXh-Cz-SKU"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
-            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+            <nil key="simulatedTopBarMetrics"/>
         </view>
     </objects>
 </document>

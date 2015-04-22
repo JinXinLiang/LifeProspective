@@ -241,7 +241,7 @@
 -(id)initWithTarget:(id)target action:(SEL)action{
     
     if((floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)){
-        return [self initWithImage:[self.class drawerButtonItemImage]
+        return [self initWithImage:[[UIImage imageNamed:@"menu"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]
                              style:UIBarButtonItemStylePlain
                             target:target
                             action:action];

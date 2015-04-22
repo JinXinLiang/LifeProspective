@@ -15,11 +15,12 @@ typedef enum : NSUInteger {
 } GetDataType;
 
 @interface RefreshAndLoadViewController : BaseViewController
+@property (nonatomic, strong) UIButton *menuBtn;
 @property (nonatomic, strong)NSMutableArray *dataArr;
 @property (nonatomic, assign)GetDataType getDataType;
 @property (nonatomic, assign)NSInteger limit;
 @property (nonatomic, assign)NSInteger skip;
-@property (nonatomic, strong)BmobQuery *articleQuery;
+@property (nonatomic, strong)BmobQuery *query;
 - (void)getData;
 
 - (void)setupRefreshWith:(UIScrollView *)scrollView;

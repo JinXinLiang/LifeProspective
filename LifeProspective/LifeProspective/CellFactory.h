@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-@class BaseCell;
-@class BaseModel;
+#import "BaseCell.h"
+#import "BaseModel.h"
 
 @interface CellFactory : NSObject
 

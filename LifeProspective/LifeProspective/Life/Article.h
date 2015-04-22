@@ -14,5 +14,6 @@
 @property (nonatomic, copy)NSString *title;
 @property (nonatomic, copy)NSString *pic;
 @property (nonatomic, strong)NSDate *createdAt;
+@property (nonatomic, copy)NSString *body;
 
 @end

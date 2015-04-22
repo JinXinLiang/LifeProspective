@@ -40,7 +40,7 @@
 + (UIColor *) anheiColor;//暗黑
 + (UIColor *) qing;//青色
 + (UIColor *) qianhuiColor; //视图控制器背景颜色
-+ (UIColor *) lifeBlueColor;
++ (UIColor *) lifeGreenColor;
 + (UIColor *) menuColor;// menuBar颜色
 + (UIColor *)lifeBackgroundColor;
 

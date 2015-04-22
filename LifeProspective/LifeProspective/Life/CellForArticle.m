@@ -23,23 +23,29 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.layer.cornerRadius = 7;
-        self.backgroundColor = [UIColor whiteColor];
-        self.clipsToBounds = YES;
+  
+        self.backgroundColor = [UIColor clearColor];
         self.articleImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         self.articleImageView.contentMode = UIViewContentModeScaleAspectFill;
-        self.articleImageView.backgroundColor = [UIColor cyanColor];
+        self.articleImageView.layer.cornerRadius = 7;
         self.articleImageView.clipsToBounds = YES;
+        self.articleImageView.backgroundColor = [UIColor cyanColor];
         self.articleImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.contentView addSubview:self.articleImageView];
         
-        self.blueView = [[UIView alloc] initWithFrame:CGRectZero];
-        self.blueView.backgroundColor = [UIColor lifeBlueColor];
-        [self.contentView addSubview:self.blueView];
+    self.articleImageView.layer.shadowOffset = CGSizeMake(0, 0);
+    self.articleImageView.layer.shadowOpacity = 0.8;
+        self.articleImageView.layer.shadowRadius = 7;
+        
+    self.articleImageView.layer.shadowColor = [UIColor blackColor].CGColor;
+        
+//        self.blueView = [[UIView alloc] initWithFrame:CGRectZero];
+//        self.blueView.backgroundColor = [UIColor lifeGreenColor];
+//        [self.contentView addSubview:self.blueView];
         
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        self.titleLabel.backgroundColor = [UIColor whiteColor];
-        self.titleLabel.textColor = [UIColor lifeBlueColor];
+        self.titleLabel.textColor = [UIColor whiteColor];
+//        self.titleLabel.backgroundColor = [UIColor whiteColor];
         [self.contentView addSubview:self.titleLabel];
         
 //        self.dateLabel = [[UILabel alloc] initWithFrame:CGRectZero];

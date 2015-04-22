@@ -91,7 +91,7 @@
         
        rightView = (UIImageView *)textField.rightView;
     } else {
-        rightView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, rightImage.size.width * 1.5, rightImage.size.height*1.5)];
+        rightView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, rightImage.size.width / 3, rightImage.size.height / 3)];
         textField.rightView = rightView;
     }
     rightView.image = rightImage;
@@ -113,7 +113,7 @@
         default:
             break;
     }
-    textField.layer.borderColor = [UIColor lifeBlueColor].CGColor;
+    textField.layer.borderColor = [UIColor lifeGreenColor].CGColor;
     [self setTextField:textField withState:@"selected" AndType:self.textFieldType];
 }
 

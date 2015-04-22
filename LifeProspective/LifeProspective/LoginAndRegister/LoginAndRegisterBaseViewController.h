@@ -6,10 +6,10 @@
 //  Copyright (c) 2015年 jinxinliang. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "LoginAndRegisterTextFieldHandler.h"
+#import "BaseViewController.h"
 
-@interface LoginAndRegisterBaseViewController : UIViewController
+@interface LoginAndRegisterBaseViewController : BaseViewController
 @property (strong, nonatomic) LoginAndRegisterTextFieldHandler *textFieldHandler;
 
 @end

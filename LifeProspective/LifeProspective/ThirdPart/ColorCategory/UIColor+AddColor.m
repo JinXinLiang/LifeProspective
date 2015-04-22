@@ -158,9 +158,9 @@
     return [UIColor colorFromHexCode:@"009ad6"];
 }
 
-+ (UIColor *)lifeBlueColor
++ (UIColor *)lifeGreenColor
 {
-    return [UIColor colorFromHexCode:@"5ba2d9"];
+    return [UIColor colorFromHexCode:@"7bc3c9"];
 }
 
 + (UIColor *)lifeBackgroundColor

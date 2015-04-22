@@ -16,8 +16,7 @@
 #import "CellForArticle.h"
 #import "TabView.h"
 #import "LoginViewController.h"
-#import "AppDelegate.h"
-
+#import "DetailViewController.h"
 
 
 @interface LifeViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -37,10 +36,18 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        //用户存在就创建数据库
+//        BmobUser *user = [BmobUser getCurrentUser];
+//        if (user) {
+//            BmobDB *db = [BmobDB currentDatabase];
+//            [db createDataBase];
+//        }else{
+//            
+//        }
         self.articleArr = [NSMutableArray array];
-        self.articleQuery = [BmobQuery queryWithClassName:@"Article"];
-        [self.articleQuery orderByDescending:@"createdAt"];
-        self.articleQuery.cachePolicy = kBmobCachePolicyNetworkElseCache;
+        self.query = [BmobQuery queryWithClassName:@"Article"];
+        [self.query orderByDescending:@"createdAt"];
+        self.query.cachePolicy = kBmobCachePolicyNetworkElseCache;
     }
     return self;
 }
@@ -48,41 +55,45 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.title = @"neusoft";
-    BOOL hasLogin = [[NSUserDefaults standardUserDefaults] boolForKey:@"hasLogin"];
-    if (!hasLogin) {
-        LoginViewController *loginVC = [[LoginViewController alloc] init];
-        
-        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:loginVC] animated:YES completion:^{
-            AppDelegate *delegate = [UIApplication sharedApplication].delegate;
-            [delegate.statusBarView removeFromSuperview];
-        }];
-        
-    }
-        
+    self.title = @"准资讯";
+//    BOOL hasLogin = [[NSUserDefaults standardUserDefaults] boolForKey:@"hasLogin"];
+//    if (!hasLogin) {
+//        LoginViewController *loginVC = [[LoginViewController alloc] init];
+//        
+//        [self presentViewController:[[UINavigationController alloc] initWithRootViewController:loginVC] animated:NO completion:^{
+//            [self setupRefreshWith:self.lifeTable];
+//        }];
+//        
+//    } else {
+    self.lifeTable.backgroundColor = [UIColor clearColor];
         [self setupRefreshWith:self.lifeTable];
-        
-        TabView *tabView = [[TabView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, [UIScreen mainScreen].bounds.size.width, 44)];
-        [self.view addSubview:tabView];
+//    }
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     
-    NSDictionary *views = @{@"view":self.view, @"tabView":tabView};
-    NSDictionary *metrics = @{@"LeftStep":@0, @"BoomStep":@0, @"Width":[NSNumber numberWithFloat:self.view.frame.size.width], @"Height":@"44", @"VStep":@20, @"HStep":@20};
-    NSString *vLayoutString = @"V:|-TopStep-[backgroundView(==Width)]-VStep-[textInfoLabel(>=20)]";
-    NSArray *vLayoutArray = [NSLayoutConstraint constraintsWithVisualFormat:vLayoutString options:0 metrics:metrics views:views];
     
-    NSString *hLayoutstring = @"H:|-LeftStep-[backgroundView(==Height)]-HStep-[textInfoLabel(==100)]";
-    NSArray *hLayoutArray = [NSLayoutConstraint constraintsWithVisualFormat:hLayoutstring options:0 metrics:metrics views:views];
     
-    [self.view addConstraints:vLayoutArray];
-    [self.view addConstraints:hLayoutArray];
+    TabView *tabView = [[TabView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, [UIScreen mainScreen].bounds.size.width, 44)];
+    [self.view addSubview:tabView];
+    
+    NSLayoutConstraint *bottomContstraint = [NSLayoutConstraint constraintWithItem:tabView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+    NSLayoutConstraint *leadingContstraint = [NSLayoutConstraint constraintWithItem:tabView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0];
+    NSLayoutConstraint *trailingContstraint = [NSLayoutConstraint constraintWithItem:tabView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0];
+    NSLayoutConstraint *heightContstraint = [NSLayoutConstraint constraintWithItem:tabView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:44];
+    tabView.translatesAutoresizingMaskIntoConstraints = NO;
+    [tabView addConstraint:heightContstraint];
+    [self.view addConstraints:@[leadingContstraint, trailingContstraint, bottomContstraint]];
+
     
 }
 
+
+
 - (void)getData
 {
-    self.articleQuery.limit = self.limit;
-    self.articleQuery.skip = self.skip;
-    [self.articleQuery findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
+    self.query.limit = self.limit;
+    self.query.skip = self.skip;
+    [self.query findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
         if (nil != array) {
             if (self.getDataType == refreshData) {
                 [self.articleArr removeAllObjects];
@@ -97,14 +108,24 @@
     }];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 10;
-}
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return self.articleArr.count;
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+//{
+//    return 10;
+//}
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+//{
+//    return self.articleArr.count;
+//}
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+//{
+//    return 40;
+//}
+//
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+//{
+//    return [[UIView alloc]  initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+//}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -114,12 +135,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    return self.articleArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BaseModel *article = self.articleArr[indexPath.section];
+    BaseModel *article = self.articleArr[indexPath.row];
     BaseCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([article class])];
     
     if (!cell) {
@@ -133,7 +154,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    Article *article = self.articleArr[indexPath.row];
+    DetailViewController *detailVC = [[DetailViewController alloc] init];
+    detailVC.articleModel = article;
+    [self.navigationController pushViewController:detailVC animated:YES];
+
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

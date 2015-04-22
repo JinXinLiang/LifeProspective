@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MenuViewController">
             <connections>
-                <outlet property="menuTableView" destination="nuF-WC-WY4" id="ZIJ-8E-GPZ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -15,23 +15,69 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsVerticalScrollIndicator="NO" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="nuF-WC-WY4">
-                    <rect key="frame" x="-5" y="0.0" width="605" height="600"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <color key="sectionIndexBackgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                <button opaque="NO" tag="10000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oQm-XH-Z4Z">
+                    <rect key="frame" x="10" y="44" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="7kx-yf-FJr"/>
+                        <constraint firstAttribute="width" constant="100" id="jtM-DC-ESO"/>
+                    </constraints>
+                    <state key="normal" backgroundImage="article_selected">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="ZMt-jL-gMi"/>
-                        <outlet property="delegate" destination="-1" id="W7D-57-1et"/>
+                        <action selector="buttonAction:" destination="-1" eventType="touchUpInside" id="cQJ-Zq-dUX"/>
                     </connections>
-                </tableView>
+                </button>
+                <button opaque="NO" tag="10002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FvY-ug-Naa">
+                    <rect key="frame" x="9.5" y="304" width="100" height="100"/>
+                    <state key="normal" backgroundImage="voice_normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="buttonAction:" destination="-1" eventType="touchUpInside" id="sEM-RY-Xhj"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="10003" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pCm-KO-Hef">
+                    <rect key="frame" x="9.5" y="434" width="100" height="100"/>
+                    <state key="normal" backgroundImage="setting_normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="buttonAction:" destination="-1" eventType="touchUpInside" id="uzT-Yu-1jS"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="10001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bVJ-gL-DaE">
+                    <rect key="frame" x="9.5" y="174" width="100" height="100"/>
+                    <state key="normal" backgroundImage="chat_normal">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="buttonAction:" destination="-1" eventType="touchUpInside" id="Ebj-07-tBe"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="nuF-WC-WY4" secondAttribute="bottom" id="TgJ-iW-5ec"/>
-                <constraint firstItem="nuF-WC-WY4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bZS-wM-mk0"/>
-                <constraint firstItem="nuF-WC-WY4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="-5" id="v0Z-Mb-ZCH"/>
-                <constraint firstAttribute="trailing" secondItem="nuF-WC-WY4" secondAttribute="trailing" id="yAt-QZ-vze"/>
+                <constraint firstItem="pCm-KO-Hef" firstAttribute="width" secondItem="FvY-ug-Naa" secondAttribute="width" id="1MC-Pa-uY4"/>
+                <constraint firstItem="FvY-ug-Naa" firstAttribute="width" secondItem="bVJ-gL-DaE" secondAttribute="width" id="2eC-kb-c53"/>
+                <constraint firstItem="pCm-KO-Hef" firstAttribute="height" secondItem="FvY-ug-Naa" secondAttribute="height" id="8zd-p2-1EA"/>
+                <constraint firstItem="pCm-KO-Hef" firstAttribute="top" secondItem="FvY-ug-Naa" secondAttribute="bottom" constant="30" id="Iri-K0-dbM"/>
+                <constraint firstItem="oQm-XH-Z4Z" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="44" id="JUZ-ex-yar"/>
+                <constraint firstItem="bVJ-gL-DaE" firstAttribute="top" secondItem="oQm-XH-Z4Z" secondAttribute="bottom" constant="30" id="Nto-f1-ag2"/>
+                <constraint firstItem="FvY-ug-Naa" firstAttribute="height" secondItem="bVJ-gL-DaE" secondAttribute="height" id="RnN-RC-hKy"/>
+                <constraint firstItem="FvY-ug-Naa" firstAttribute="top" secondItem="bVJ-gL-DaE" secondAttribute="bottom" constant="30" id="avO-P7-mGN"/>
+                <constraint firstItem="bVJ-gL-DaE" firstAttribute="centerX" secondItem="oQm-XH-Z4Z" secondAttribute="centerX" constant="-0.5" id="hA1-lr-K15"/>
+                <constraint firstItem="FvY-ug-Naa" firstAttribute="centerX" secondItem="bVJ-gL-DaE" secondAttribute="centerX" id="mhF-M4-8jK"/>
+                <constraint firstItem="oQm-XH-Z4Z" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="qdn-PH-Dnr"/>
+                <constraint firstItem="bVJ-gL-DaE" firstAttribute="width" secondItem="oQm-XH-Z4Z" secondAttribute="width" id="sB0-h7-4kR"/>
+                <constraint firstItem="bVJ-gL-DaE" firstAttribute="height" secondItem="oQm-XH-Z4Z" secondAttribute="height" id="t6U-o3-vaM"/>
+                <constraint firstItem="pCm-KO-Hef" firstAttribute="centerX" secondItem="FvY-ug-Naa" secondAttribute="centerX" id="uJr-BB-12n"/>
             </constraints>
         </view>
     </objects>
+    <resources>
+        <image name="article_selected" width="150" height="150"/>
+        <image name="chat_normal" width="150" height="150"/>
+        <image name="setting_normal" width="150" height="150"/>
+        <image name="voice_normal" width="150" height="150"/>
+    </resources>
 </document>

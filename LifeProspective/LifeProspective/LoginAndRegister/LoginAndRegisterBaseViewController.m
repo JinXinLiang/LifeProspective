@@ -8,10 +8,11 @@
 
 #import "LoginAndRegisterBaseViewController.h"
 #import "UIColor+AddColor.h"
+#import "AppDelegate.h"
+
 
 
 @interface LoginAndRegisterBaseViewController ()
-
 
 
 @end
@@ -21,9 +22,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate creatStatusBarView];
     self.textFieldHandler = [[LoginAndRegisterTextFieldHandler alloc] init];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor lifeBackgroundColor];
+
+}
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    AppDelegate *appDelegate = [UIApplication sharedApplication].delegate;
+    [appDelegate.statusBarView removeFromSuperview];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

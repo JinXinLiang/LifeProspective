@@ -139,7 +139,7 @@ NSString const * UIImagePickerControllerCircularEditedImage = @" UIImagePickerCo
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if ([viewController isKindOfClass:NSClassFromString(@"PLUIImageViewController")] && self.editMode && [navigationController.viewControllers count] == 3) {
-        CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
+        CGFloat SCREENHEIGHT = [[UIScreen mainScreen] bounds].size.height;
         
         UIView *plCropOverlay = [[viewController.view.subviews objectAtIndex:1] subviews][0];
         
@@ -147,7 +147,7 @@ NSString const * UIImagePickerControllerCircularEditedImage = @" UIImagePickerCo
         
         int position = 0;
         
-        if (screenHeight == 568){
+        if (SCREENHEIGHT == 568){
             position = 124;
         } else {
             position = 80;
@@ -167,7 +167,7 @@ NSString const * UIImagePickerControllerCircularEditedImage = @" UIImagePickerCo
         
         CGFloat bottomBarHeight = isIpad ? 51 : 72;
         
-        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, diameter, screenHeight - bottomBarHeight) cornerRadius:0];
+        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, diameter, SCREENHEIGHT - bottomBarHeight) cornerRadius:0];
         [path appendPath:circlePath];
         [path setUsesEvenOddFillRule:YES];
         
@@ -181,7 +181,7 @@ NSString const * UIImagePickerControllerCircularEditedImage = @" UIImagePickerCo
         
         
         if (!isIpad) {
-            UILabel *moveLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 320, 50)];
+            UILabel *moveLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, [UIScreen mainScreen].bounds.size.width, 50)];
             [moveLabel setText:@"Move and Scale"];
             [moveLabel setTextAlignment:NSTextAlignmentCenter];
             [moveLabel setTextColor:[UIColor whiteColor]];

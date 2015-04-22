@@ -8,6 +8,8 @@
 
 #import "RefreshAndLoadViewController.h"
 #import "MJRefresh.h"
+#import "UIViewController+MMDrawerController.h"
+#import "MMDrawerBarButtonItem.h"
 
 
 
@@ -33,9 +35,37 @@
     return self;
 }
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    backgroundView.image = [UIImage imageNamed:@"background"];
+        [self.view addSubview:backgroundView];
+    [self.view sendSubviewToBack:backgroundView];
+    UITapGestureRecognizer * doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
+    [doubleTap setNumberOfTapsRequired:2];
+    [self.view addGestureRecognizer:doubleTap];
+    UITapGestureRecognizer * twoFingerDoubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(twoFingerDoubleTap:)];
+    [twoFingerDoubleTap setNumberOfTapsRequired:2];
+    [twoFingerDoubleTap setNumberOfTouchesRequired:2];
+    [self.view addGestureRecognizer:twoFingerDoubleTap];
+    
+  
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self setupLeftMenuButton];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.menuBtn removeFromSuperview];
 }
 
 - (void)setupRefreshWith:(UIScrollView *)scrollView
@@ -106,6 +136,30 @@
         
         
     });
+}
+
+// 设置navigation的左按钮为抽屉开关
+-(void)setupLeftMenuButton{
+    
+    self.menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.menuBtn.frame = CGRectMake(15, 10, 30, 30);
+    [self.menuBtn setBackgroundImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
+    [self.menuBtn addTarget:self action:@selector(leftDrawerButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationController.navigationBar addSubview:self.menuBtn];
+}
+// 触发的方法
+#pragma mark - Button Handlers
+-(void)leftDrawerButtonPress:(id)sender{
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+}
+
+
+-(void)doubleTap:(UITapGestureRecognizer*)gesture{
+    [self.mm_drawerController bouncePreviewForDrawerSide:MMDrawerSideLeft completion:nil];
+}
+
+-(void)twoFingerDoubleTap:(UITapGestureRecognizer*)gesture{
+    [self.mm_drawerController bouncePreviewForDrawerSide:MMDrawerSideRight completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

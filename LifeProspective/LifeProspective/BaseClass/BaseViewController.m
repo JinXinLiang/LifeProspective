@@ -8,8 +8,7 @@
 
 #import "BaseViewController.h"
 #import "UIColor+AddColor.h"
-#import "MMDrawerBarButtonItem.h"
-#import "UIViewController+MMDrawerController.h"
+
 
 @interface BaseViewController ()
 
@@ -20,45 +19,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    self.view.backgroundColor = [UIColor lifeBackgroundColor];
-    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,nil];
+//    self.view.backgroundColor = [UIColor lifeBackgroundColor];
+    NSDictionary *attributes=[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName, [UIFont systemFontOfSize:24.f], NSFontAttributeName,nil];
     [self.navigationController.navigationBar setTitleTextAttributes:attributes];
     
-    self.navigationController.navigationBar.translucent = NO;
-    UITapGestureRecognizer * doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
-    [doubleTap setNumberOfTapsRequired:2];
-    [self.view addGestureRecognizer:doubleTap];
-    
-    UITapGestureRecognizer * twoFingerDoubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(twoFingerDoubleTap:)];
-    [twoFingerDoubleTap setNumberOfTapsRequired:2];
-    [twoFingerDoubleTap setNumberOfTouchesRequired:2];
-    [self.view addGestureRecognizer:twoFingerDoubleTap];
-    [self setupLeftMenuButton];
-    
-    
-    self.navigationController.navigationBar.barTintColor = [UIColor lifeBlueColor];
+//    self.navigationController.navigationBar.translucent = NO;
+   
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    if ([self.navigationController.navigationBar respondsToSelector:@selector(shadowImage)])
+    {
+        [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    }
 
 }
 
-// 设置navigation的左按钮为抽屉开关
--(void)setupLeftMenuButton{
-    MMDrawerBarButtonItem * leftDrawerButton = [[MMDrawerBarButtonItem alloc] initWithTarget:self action:@selector(leftDrawerButtonPress:)];
-    [self.navigationItem setLeftBarButtonItem:leftDrawerButton animated:YES];
-}
-// 触发的方法
-#pragma mark - Button Handlers
--(void)leftDrawerButtonPress:(id)sender{
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-}
 
-
--(void)doubleTap:(UITapGestureRecognizer*)gesture{
-    [self.mm_drawerController bouncePreviewForDrawerSide:MMDrawerSideLeft completion:nil];
-}
-
--(void)twoFingerDoubleTap:(UITapGestureRecognizer*)gesture{
-    [self.mm_drawerController bouncePreviewForDrawerSide:MMDrawerSideRight completion:nil];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
