@@ -13,12 +13,13 @@
 
 
 
-@interface RefreshAndLoadViewController ()
+@interface RefreshAndLoadViewController ()<UIScrollViewDelegate>
 
 
 
 
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, assign) CGFloat offsetY;
 
 @end
 
@@ -73,13 +74,14 @@
 //    NSLog(@"进入了setupRefresh");
 // 1.下拉刷新(进入刷新状态就会调用self的headerRereshing)
     self.scrollView = scrollView;
-    [self.scrollView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(headerRereshing:)];
+    [self beginRefreshing];
+//    [self.scrollView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(headerRereshing:)];
 //#warning 自动刷新(一进入程序就下拉刷新)
-    [self.scrollView.header beginRefreshing];
-    
-    
-// 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
-    [self.scrollView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(footerRereshing:)];
+//    [self.scrollView.header beginRefreshing];
+//    
+//    
+//// 2.上拉加载更多(进入刷新状态就会调用self的footerRereshing)
+//    [self.scrollView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(footerRereshing:)];
     
 }
 
@@ -88,17 +90,49 @@
     
 }
 
-#pragma mark 开始进入刷新状态
-- (void)headerRereshing:(UIScrollView *)scrollView
-{
-    
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.offsetY = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (scrollView.contentOffset.y + 100 < 0) {
+        [self beginRefreshing];
+    } else if (scrollView.contentOffset.y > scrollView.contentSize.height - SCREENHEIGHT - 150) {
+        [self beginLoading];
+    }
+}
+
+- (void)beginRefreshing {
+    self.scrollView.contentInset = UIEdgeInsetsMake(40, 0, 0, 0);
     self.skip = 0;
     self.getDataType = refreshData;
-// 创建队列   在刷新方法里    如果创建在viewdidload里   会出现卡顿现象
+    // 创建队列   在刷新方法里    如果创建在viewdidload里   会出现卡顿现象
     [self getData];
     
     
     [self endRefreshing];
+}
+
+- (void)beginLoading {
+    
+    if (self.dataArr.count + 10 > self.skip) {
+        
+        self.skip += 10;
+        [self getData];
+    }
+    self.getDataType = loadData;
+    
+    
+    // 2.2秒后刷新表格UI
+    [self endRefreshing];
+    
+}
+
+#pragma mark 开始进入刷新状态
+- (void)headerRereshing:(UIScrollView *)scrollView
+{
+    
+    
     
 }
 
@@ -109,21 +143,17 @@
     
 // 在加载方法里创建子线程    会造成刷新不成功
     
-    if (self.dataArr.count + 10 > self.skip) {
-        
-        self.skip += 10;
-        [self getData];
-    }
-    self.getDataType = loadData;
-    
-    
-// 2.2秒后刷新表格UI
-    [self endRefreshing];
+
 }
 
 - (void)endRefreshing
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [UIView animateWithDuration:0.2f animations:^{
+            
+        }];
+        self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
         // 刷新表格
         [self.scrollView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
         if (self.getDataType == refreshData) {

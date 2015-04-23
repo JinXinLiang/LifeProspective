@@ -11,10 +11,12 @@
 
 @interface Audio : BaseModel
 
-@property (nonatomic, strong)NSData *voice;
-@property (nonatomic, strong)Author *author;
+@property (nonatomic, copy)NSString *voiceInfo;
+@property (nonatomic, strong)Author *authorInfo;
 
-@property (nonatomic, strong)NSData *audio_Photo;
+@property (nonatomic, copy)NSString *audioPhoto;
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic, copy) NSString *authorName;
+@property (nonatomic, copy) NSString *authorPhoto;
 
 @end

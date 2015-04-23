@@ -1,4 +1,5 @@
 platform :ios, '7.0'
+pod 'FXBlurView', '~> 1.6.3'
 pod 'MJExtension', '~> 0.2.0'
 pod 'SDWebImage', '~> 3.7.2'
 pod 'MJRefresh', '~> 1.4.1'

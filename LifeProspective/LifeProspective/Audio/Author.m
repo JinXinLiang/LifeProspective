@@ -10,4 +10,19 @@
 
 @implementation Author
 
+- (instancetype)initWithBmobObject:(BmobObject *)object
+{
+    self = [super initWithBmobObject:object];
+    if (self) {
+ 
+        
+        BmobFile *authorPhoto = [object objectForKey:@"author_photo"];
+        self.authorPhoto = authorPhoto.url;
+        
+    }
+    return self;
+}
+
+
+
 @end

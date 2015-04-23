@@ -25,13 +25,14 @@
 //#import "BMapKit.h"
 #import "CommonUtil.h"
 #import "CellForMenu.h"
+#import "AudioListViewController.h"
 
 NSInteger flag = 0;
 
 typedef enum : NSUInteger {
     ArticleType = 10000,
     ChatType,
-    ColloctType,
+    AudioType,
     SettingType,
 } SelectedMenuType;
 
@@ -66,34 +67,79 @@ typedef enum : NSUInteger {
         self.selectedMenuType = sender.tag;
 
         UIViewController *centerVC = nil;
-        if (self.selectedMenuType == ChatType) {
-            
-            [BmobGPSSwitch gpsSwitch:NO];
-            
-            RecentViewController *rvc            = [[RecentViewController alloc] init];
-            UINavigationController *rnc          = [[UINavigationController alloc] initWithRootViewController:rvc];
-            ContactsViewController *cvc          = [[ContactsViewController alloc] init];
-            UINavigationController *cnc          = [[UINavigationController alloc] initWithRootViewController:cvc];
-            
-            
-            RootViewController *tabBarController = [[RootViewController alloc] init];
-
+        switch (self.selectedMenuType) {
+            case ArticleType: {
+                LifeViewController *lifeVC = [[LifeViewController alloc] init];
+                // 将主页面加到视图控制器中
+                UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:lifeVC];
+                centerVC = (UIViewController *)navigationController;
+            }
+                break;
+            case ChatType: {
+                [BmobGPSSwitch gpsSwitch:NO];
+                
+                RecentViewController *rvc            = [[RecentViewController alloc] init];
+                UINavigationController *rnc          = [[UINavigationController alloc] initWithRootViewController:rvc];
+                ContactsViewController *cvc          = [[ContactsViewController alloc] init];
+                UINavigationController *cnc          = [[UINavigationController alloc] initWithRootViewController:cvc];
+                
+                
+                RootViewController *tabBarController = [[RootViewController alloc] init];
+                
                 [rnc.navigationBar setBackgroundImage:[UIImage imageNamed:@"top_bar"] forBarMetrics:UIBarMetricsDefault];
                 [cnc.navigationBar setBackgroundImage:[UIImage imageNamed:@"top_bar"] forBarMetrics:UIBarMetricsDefault];
-//                [snc.navigationBar setBackgroundImage:[UIImage imageNamed:@"top_bar"] forBarMetrics:UIBarMetricsDefault];
+                //                [snc.navigationBar setBackgroundImage:[UIImage imageNamed:@"top_bar"] forBarMetrics:UIBarMetricsDefault];
+                
+                [tabBarController setViewControllers:@[rnc,cnc]];
+                centerVC = (UIViewController *)tabBarController;
+            }
+                break;
+            case AudioType: {
+                AudioListViewController *audioVC = [[AudioListViewController alloc] init];
+                // 将主页面加到视图控制器中
+                UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:audioVC];
+                centerVC = (UIViewController *)navigationController;
+            }
+                break;
+            case SettingType: {
+                SettingViewController *settingVC           = [[SettingViewController alloc] init];
+                UINavigationController *navigationController          = [[UINavigationController alloc] initWithRootViewController:settingVC];
+                centerVC = (UIViewController *)navigationController;
 
-            [tabBarController setViewControllers:@[rnc,cnc]];
-            centerVC = (UIViewController *)tabBarController;
-        }else if (self.selectedMenuType == SettingType) {
-            SettingViewController *svc           = [[SettingViewController alloc] init];
-            UINavigationController *snc          = [[UINavigationController alloc] initWithRootViewController:svc];
-            centerVC = (UIViewController *)snc;
-        } else {
-            LifeViewController *lifeVC = [[LifeViewController alloc] init];
-            // 将主页面加到视图控制器中
-            UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:lifeVC];
-            centerVC = (UIViewController *)navigationController;
+            }
+                break;
+                
+            default:
+                break;
         }
+//        if (self.selectedMenuType == ChatType) {
+//            
+//            [BmobGPSSwitch gpsSwitch:NO];
+//            
+//            RecentViewController *rvc            = [[RecentViewController alloc] init];
+//            UINavigationController *rnc          = [[UINavigationController alloc] initWithRootViewController:rvc];
+//            ContactsViewController *cvc          = [[ContactsViewController alloc] init];
+//            UINavigationController *cnc          = [[UINavigationController alloc] initWithRootViewController:cvc];
+//            
+//            
+//            RootViewController *tabBarController = [[RootViewController alloc] init];
+//
+//                [rnc.navigationBar setBackgroundImage:[UIImage imageNamed:@"top_bar"] forBarMetrics:UIBarMetricsDefault];
+//                [cnc.navigationBar setBackgroundImage:[UIImage imageNamed:@"top_bar"] forBarMetrics:UIBarMetricsDefault];
+////                [snc.navigationBar setBackgroundImage:[UIImage imageNamed:@"top_bar"] forBarMetrics:UIBarMetricsDefault];
+//
+//            [tabBarController setViewControllers:@[rnc,cnc]];
+//            centerVC = (UIViewController *)tabBarController;
+//        }else if (self.selectedMenuType == SettingType) {
+//            SettingViewController *svc           = [[SettingViewController alloc] init];
+//            UINavigationController *snc          = [[UINavigationController alloc] initWithRootViewController:svc];
+//            centerVC = (UIViewController *)snc;
+//        } else {
+//            LifeViewController *lifeVC = [[LifeViewController alloc] init];
+//            // 将主页面加到视图控制器中
+//            UINavigationController * navigationController = [[UINavigationController alloc] initWithRootViewController:lifeVC];
+//            centerVC = (UIViewController *)navigationController;
+//        }
         
         //    self.window.rootViewController = tabBarController;
         //    [BmobUser logout];

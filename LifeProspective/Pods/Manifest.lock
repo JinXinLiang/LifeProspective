@@ -1,6 +1,7 @@
 PODS:
   - BmobSDK (1.5.3)
   - FSMediaPicker (0.0.2)
+  - FXBlurView (1.6.3)
   - MJExtension (0.2.0)
   - MJRefresh (1.4.1)
   - MMDrawerController (0.5.7):
@@ -22,6 +23,7 @@ PODS:
 DEPENDENCIES:
   - BmobSDK (~> 1.5.3)
   - FSMediaPicker (~> 0.0.1)
+  - FXBlurView (~> 1.6.3)
   - MJExtension (~> 0.2.0)
   - MJRefresh (~> 1.4.1)
   - MMDrawerController (~> 0.5.7)
@@ -30,6 +32,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   BmobSDK: 93cf951e0fcc28810489994f78f0c6cc08afe2fb
   FSMediaPicker: 89c5fe9894a288db7c87c255bdb7856e33dc4073
+  FXBlurView: c6d23f3d35af2c6282296a2930f61c6e2c788d01
   MJExtension: 62af61e1a53da0a244c3ae3aff415159bcbd0f0b
   MJRefresh: 6a0fd4c81a957803bd99bbbf55a956d1d6f41263
   MMDrawerController: 7a4cf8e25596bf2434e03ce50d22a8608ddee6a1

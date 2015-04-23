@@ -1,6 +1,6 @@
 #include "Pods-FSMediaPicker.xcconfig"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/FSMediaPicker" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/BmobSDK" "${PODS_ROOT}/Headers/Public/FSMediaPicker" "${PODS_ROOT}/Headers/Public/MJExtension" "${PODS_ROOT}/Headers/Public/MJRefresh" "${PODS_ROOT}/Headers/Public/MMDrawerController" "${PODS_ROOT}/Headers/Public/SDWebImage"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/FSMediaPicker" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/BmobSDK" "${PODS_ROOT}/Headers/Public/FSMediaPicker" "${PODS_ROOT}/Headers/Public/FXBlurView" "${PODS_ROOT}/Headers/Public/MJExtension" "${PODS_ROOT}/Headers/Public/MJRefresh" "${PODS_ROOT}/Headers/Public/MMDrawerController" "${PODS_ROOT}/Headers/Public/SDWebImage"
 OTHER_LDFLAGS = ${PODS_FSMEDIAPICKER_OTHER_LDFLAGS} -ObjC
 PODS_ROOT = ${SRCROOT}
 SKIP_INSTALL = YES

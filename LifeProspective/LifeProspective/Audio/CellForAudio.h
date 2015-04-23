@@ -10,4 +10,7 @@
 
 @interface CellForAudio : BaseCell
 
+- (void)changeFrame:(BOOL)origin;
+
+
 @end

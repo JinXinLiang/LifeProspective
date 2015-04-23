@@ -67,13 +67,14 @@
     self.mapView.zoomLevel         = 17.0f;
     [self.view addSubview:self.mapView];
 
-    [BMKLocationService setLocationDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
     //指定最小距离更新(米)，默认：kCLDistanceFilterNone
     [BMKLocationService setLocationDistanceFilter:100.f];
     //定位服务
     self.locService                = [[BMKLocationService alloc]init];
-    [self.locService startUserLocationService];
+    [BMKLocationService setLocationDesiredAccuracy:kCLLocationAccuracyBest];
     self.mapView.userTrackingMode  = BMKUserTrackingModeFollow;
+    self.mapView.showsUserLocation = YES;
+    [self.locService startUserLocationService];
     
 //    [self.locService startUserLocationService];
 //    self.mapView.showsUserLocation = NO;
@@ -84,7 +85,6 @@
     self.geocodesearch = [[BMKGeoCodeSearch alloc]init];
     self.currentLocationCoordinate2D = CLLocationCoordinate2DMake(0, 0);
   
-        self.mapView.showsUserLocation = YES;
 
     //geo
 }

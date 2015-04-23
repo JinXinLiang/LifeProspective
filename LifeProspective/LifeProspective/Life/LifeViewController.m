@@ -68,8 +68,8 @@
     self.lifeTable.backgroundColor = [UIColor clearColor];
         [self setupRefreshWith:self.lifeTable];
 //    }
-    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+//    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+//    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     
     
     

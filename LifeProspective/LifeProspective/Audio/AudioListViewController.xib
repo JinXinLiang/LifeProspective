@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AudioListViewController">
             <connections>
+                <outlet property="audioTabelView" destination="J21-2D-r0p" id="8or-DP-HDY"/>
                 <outlet property="view" destination="iN0-l3-epB" id="jXV-Kx-vih"/>
             </connections>
         </placeholder>
@@ -15,16 +16,22 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="J21-2D-r0p">
-                    <rect key="frame" x="20" y="-241" width="600" height="600"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="J21-2D-r0p">
+                    <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="n0P-j4-IG2"/>
-                        <outlet property="delegate" destination="-1" id="f2O-Nw-NO3"/>
+                        <outlet property="delegate" destination="-1" id="ACc-Qg-KrB"/>
                     </connections>
                 </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="J21-2D-r0p" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="342-bt-ylA"/>
+                <constraint firstAttribute="bottom" secondItem="J21-2D-r0p" secondAttribute="bottom" id="fUh-e6-iKz"/>
+                <constraint firstItem="J21-2D-r0p" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="64" id="sBg-oO-UcF"/>
+                <constraint firstAttribute="trailing" secondItem="J21-2D-r0p" secondAttribute="trailing" id="zFU-A6-9JS"/>
+            </constraints>
         </view>
     </objects>
 </document>

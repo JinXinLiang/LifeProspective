@@ -10,4 +10,7 @@
 
 @interface Author : BaseModel
 
+@property (nonatomic, copy)NSString *author_name;
+@property (nonatomic, copy)NSString *authorPhoto;
+
 @end

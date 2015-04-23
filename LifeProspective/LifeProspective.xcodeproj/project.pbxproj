@@ -131,6 +131,9 @@
 		73B9F3FF1ACE462E007DC257 /* top_bar1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73B9F3D01ACE462E007DC257 /* top_bar1@2x.png */; };
 		73B9F4001ACE462E007DC257 /* top_bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73B9F3D11ACE462E007DC257 /* top_bar@2x.png */; };
 		73BEAFCB1AB809B200B6AF9C /* LoginAndRegisterTextFieldHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 73BEAFCA1AB809B200B6AF9C /* LoginAndRegisterTextFieldHandler.m */; };
+		73C283021AE890560014D9B3 /* DRNRealTimeBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73C282FF1AE890560014D9B3 /* DRNRealTimeBlurView.m */; };
+		73C283031AE890560014D9B3 /* UIImage+BoxBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 73C283011AE890560014D9B3 /* UIImage+BoxBlur.m */; };
+		73C283061AE93A330014D9B3 /* AMBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 73C283051AE93A330014D9B3 /* AMBlurView.m */; };
 		73E4469E1AD6C5DD008C8C3C /* CellForMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 73E4469D1AD6C5DD008C8C3C /* CellForMenu.m */; };
 		73EB96231AB9E8FF009F38F9 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73EB96211AB9E8FF009F38F9 /* MenuViewController.m */; };
 		73EB96241AB9E8FF009F38F9 /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73EB96221AB9E8FF009F38F9 /* MenuViewController.xib */; };
@@ -392,6 +395,12 @@
 		73B9F3D11ACE462E007DC257 /* top_bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "top_bar@2x.png"; sourceTree = "<group>"; };
 		73BEAFC91AB809B200B6AF9C /* LoginAndRegisterTextFieldHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginAndRegisterTextFieldHandler.h; sourceTree = "<group>"; };
 		73BEAFCA1AB809B200B6AF9C /* LoginAndRegisterTextFieldHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginAndRegisterTextFieldHandler.m; sourceTree = "<group>"; };
+		73C282FE1AE890560014D9B3 /* DRNRealTimeBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRNRealTimeBlurView.h; sourceTree = "<group>"; };
+		73C282FF1AE890560014D9B3 /* DRNRealTimeBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRNRealTimeBlurView.m; sourceTree = "<group>"; };
+		73C283001AE890560014D9B3 /* UIImage+BoxBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BoxBlur.h"; sourceTree = "<group>"; };
+		73C283011AE890560014D9B3 /* UIImage+BoxBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BoxBlur.m"; sourceTree = "<group>"; };
+		73C283041AE93A330014D9B3 /* AMBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMBlurView.h; sourceTree = "<group>"; };
+		73C283051AE93A330014D9B3 /* AMBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMBlurView.m; sourceTree = "<group>"; };
 		73E4469C1AD6C5DD008C8C3C /* CellForMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellForMenu.h; sourceTree = "<group>"; };
 		73E4469D1AD6C5DD008C8C3C /* CellForMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellForMenu.m; sourceTree = "<group>"; };
 		73EB96201AB9E8FF009F38F9 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
@@ -601,12 +610,15 @@
 		7329986E1AA6D1A300C6DD0E /* ThirdPart */ = {
 			isa = PBXGroup;
 			children = (
+				73C282FD1AE890560014D9B3 /* Classes */,
 				73B9F3011ACD8024007DC257 /* BaiduMap */,
 				73B9F3401ACD8024007DC257 /* BmobIMDemoConfig.h */,
 				73B9F3411ACD8024007DC257 /* MBProgressHUD.h */,
 				73B9F3421ACD8024007DC257 /* MBProgressHUD.m */,
 				73B9F3431ACD8024007DC257 /* NSDate+TimeAgo.h */,
 				73B9F3441ACD8024007DC257 /* NSDate+TimeAgo.m */,
+				73C283041AE93A330014D9B3 /* AMBlurView.h */,
+				73C283051AE93A330014D9B3 /* AMBlurView.m */,
 				73B9F3451ACD8024007DC257 /* NSDateTimeAgo.bundle */,
 				73B9F2F91ACD46EC007DC257 /* BmobIM.framework */,
 				73F835DE1ABCB89500B8A059 /* MMExampleDrawerVisualStateManager.h */,
@@ -933,6 +945,17 @@
 			path = tab;
 			sourceTree = "<group>";
 		};
+		73C282FD1AE890560014D9B3 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				73C282FE1AE890560014D9B3 /* DRNRealTimeBlurView.h */,
+				73C282FF1AE890560014D9B3 /* DRNRealTimeBlurView.m */,
+				73C283001AE890560014D9B3 /* UIImage+BoxBlur.h */,
+				73C283011AE890560014D9B3 /* UIImage+BoxBlur.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		73EB961E1AB9E8FF009F38F9 /* Life */ = {
 			isa = PBXGroup;
 			children = (
@@ -1221,6 +1244,7 @@
 				73B9F3891ACD8044007DC257 /* PersonalProfileViewController.m in Sources */,
 				73F835E01ABCB89500B8A059 /* MMExampleDrawerVisualStateManager.m in Sources */,
 				738119F31AC8E0B2007B0A4D /* Article.m in Sources */,
+				73C283031AE890560014D9B3 /* UIImage+BoxBlur.m in Sources */,
 				73B9F39A1ACD8044007DC257 /* NearbyTableViewCell.m in Sources */,
 				73B9F39B1ACD8044007DC257 /* RecentTableViewCell.m in Sources */,
 				73EB96231AB9E8FF009F38F9 /* MenuViewController.m in Sources */,
@@ -1243,6 +1267,7 @@
 				731995711ABC9A6300A0FC31 /* BaseCell.m in Sources */,
 				7319956B1ABC997C00A0FC31 /* CellFactory.m in Sources */,
 				73B9F38F1ACD8044007DC257 /* RecentViewController.m in Sources */,
+				73C283021AE890560014D9B3 /* DRNRealTimeBlurView.m in Sources */,
 				73B9F3981ACD8044007DC257 /* ContactTableViewCell.m in Sources */,
 				73F7C4DB1AD92C4D00775074 /* Share.m in Sources */,
 				738119F01AC8E096007B0A4D /* CellForArticle.m in Sources */,
@@ -1259,6 +1284,7 @@
 				732998661AA6D06700C6DD0E /* BaseView.m in Sources */,
 				733177061AAEC83E00A4025B /* RegisterViewController.m in Sources */,
 				73B9F3871ACD8044007DC257 /* NearbyViewController.m in Sources */,
+				73C283061AE93A330014D9B3 /* AMBlurView.m in Sources */,
 				73B9F3881ACD8044007DC257 /* NewFriendViewController.m in Sources */,
 				73B9F3831ACD8044007DC257 /* ChatViewController.m in Sources */,
 				73B9F38E1ACD8044007DC257 /* UserService.m in Sources */,
