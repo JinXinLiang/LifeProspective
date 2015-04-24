@@ -29,7 +29,6 @@
         self.articleImageView.contentMode = UIViewContentModeScaleAspectFill;
         self.articleImageView.layer.cornerRadius = 7;
         self.articleImageView.clipsToBounds = YES;
-        self.articleImageView.backgroundColor = [UIColor cyanColor];
         self.articleImageView.contentMode = UIViewContentModeScaleAspectFill;
         [self.contentView addSubview:self.articleImageView];
         
@@ -61,7 +60,7 @@
     [super setDataModel:dataModel];
     Article *article = (Article *)dataModel;
     self.titleLabel.text = article.title;
-    [self.articleImageView sd_setImageWithURL:[NSURL URLWithString:article.pic] placeholderImage:nil];
+    [self.articleImageView sd_setImageWithURL:[NSURL URLWithString:article.pic] placeholderImage:[UIImage imageNamed:@"placeholder"]];
 //    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 //    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
 //    NSString *dateStr = [formatter stringFromDate:article.createdAt];
@@ -71,10 +70,10 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.articleImageView.frame = CGRectMake(0, 0, self.frame.size.width, 155);
+    self.articleImageView.frame = CGRectMake(0, 0, self.frame.size.width, 170);
     self.blueView.frame = CGRectMake(0, 155, self.frame.size.width, 3);
     [self.titleLabel sizeToFit];
-    self.titleLabel.frame = CGRectMake(10, 165, self.frame.size.width - 10, 25);
+    self.titleLabel.frame = CGRectMake(10, 175, self.frame.size.width - 10, 25);
 //    self.dateLabel.frame = CGRectMake(10, 185, self.frame.size.width - 10, 20);
 }
 

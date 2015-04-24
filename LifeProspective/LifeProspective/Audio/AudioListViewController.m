@@ -49,8 +49,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     CellForAudio *cell = (CellForAudio *)[tableView cellForRowAtIndexPath:indexPath];
+    
 //    NSMutableArray *indexPathArr = [NSMutableArray array];
 //    if (self.selectedIndexPath == nil || self.selectedIndexPath.row != indexPath.row) {
 //        if (self.selectedIndexPath != nil) {
@@ -95,7 +96,6 @@
     
 }
 
-
 #pragma mark - tableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -110,6 +110,7 @@
     if (!cell) {
         cell = (CellForAudio *)[CellFactory cellForModel:audio];
     }
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     if (self.selectedIndexPath) {
         

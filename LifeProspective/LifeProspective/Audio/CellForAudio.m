@@ -9,10 +9,6 @@
 #import "CellForAudio.h"
 #import "Audio.h"
 #import <BmobSDK/BmobFile.h>
-#import "FXBlurView.h"
-#import "DRNRealTimeBlurView.h"
-#import "AMBlurView.h"
-
 
 
 @interface CellForAudio ()
@@ -36,7 +32,8 @@
         self.backgroundColor = [UIColor clearColor];
         self.contentView.backgroundColor = [UIColor clearColor];
         self.coverImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 70)];
-        self.coverImageView.contentMode = UIViewContentModeRedraw;
+        self.coverImageView.contentMode = UIViewContentModeScaleAspectFill;
+        self.coverImageView.clipsToBounds = YES;
         self.coverImageView.hidden = YES;
         [self.contentView addSubview:self.coverImageView];
         
@@ -76,6 +73,8 @@
         self.authorPhotoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 10, 50, 50)];
         self.authorPhotoImageView.layer.cornerRadius = 25.f;
         self.authorPhotoImageView.clipsToBounds = YES;
+        self.authorPhotoImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.authorPhotoImageView.layer.borderWidth = 3.f;
         
         [self.backGround addSubview:self.authorPhotoImageView];
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 10, SCREENWIDTH - 110 - 20, 30)];
@@ -94,7 +93,7 @@
     [super setDataModel:dataModel];
     Audio *audio = (Audio *)dataModel;
     
-    [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:audio.audioPhoto]];
+    [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:audio.audioPhoto] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
     
     [self.authorPhotoImageView sd_setImageWithURL:[NSURL URLWithString:audio.authorPhoto]];
@@ -117,6 +116,7 @@
     
 //    [self.contentView sendSubviewToBack:view];
 }
+
 
 - (void)changeFrame:(BOOL)origin
 {
