@@ -21,6 +21,8 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, assign) CGFloat offsetY;
 
+@property (nonatomic, strong) UILabel *header;
+
 @end
 
 @implementation RefreshAndLoadViewController
@@ -32,6 +34,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.getDataType = refreshData;
+        self.limit = 10;
     }
     return self;
 }
@@ -41,18 +44,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+//    self.navigationController.navigationBar.translucent = NO;
     
     UIImageView *backgroundView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     backgroundView.image = [UIImage imageNamed:@"background"];
         [self.view addSubview:backgroundView];
     [self.view sendSubviewToBack:backgroundView];
-    UITapGestureRecognizer * doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
-    [doubleTap setNumberOfTapsRequired:2];
-    [self.view addGestureRecognizer:doubleTap];
-    UITapGestureRecognizer * twoFingerDoubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(twoFingerDoubleTap:)];
-    [twoFingerDoubleTap setNumberOfTapsRequired:2];
-    [twoFingerDoubleTap setNumberOfTouchesRequired:2];
-    [self.view addGestureRecognizer:twoFingerDoubleTap];
+//    UITapGestureRecognizer * doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTap:)];
+//    [doubleTap setNumberOfTapsRequired:2];
+//    [self.view addGestureRecognizer:doubleTap];
+//    UITapGestureRecognizer * twoFingerDoubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(twoFingerDoubleTap:)];
+//    [twoFingerDoubleTap setNumberOfTapsRequired:2];
+//    [twoFingerDoubleTap setNumberOfTouchesRequired:2];
+//    [self.view addGestureRecognizer:twoFingerDoubleTap];
     
   
 }
@@ -97,13 +101,19 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (scrollView.contentOffset.y + 100 < 0) {
         [self beginRefreshing];
-    } else if (scrollView.contentOffset.y > scrollView.contentSize.height - SCREENHEIGHT - 150) {
+    } else if (scrollView.contentOffset.y > scrollView.contentSize.height - SCREENHEIGHT && scrollView.contentSize.height > SCREENHEIGHT) {
         [self beginLoading];
     }
 }
 
 - (void)beginRefreshing {
-    self.scrollView.contentInset = UIEdgeInsetsMake(40, 0, 0, 0);
+    [self addRefreshHeader];
+    [UIView animateWithDuration:0.2f animations:^{
+        
+        self.scrollView.contentInset = UIEdgeInsetsMake(30, 0, 0, 0);
+        
+        
+    }];
     self.skip = 0;
     self.getDataType = refreshData;
     // 创建队列   在刷新方法里    如果创建在viewdidload里   会出现卡顿现象
@@ -113,14 +123,38 @@
     [self endRefreshing];
 }
 
-- (void)beginLoading {
+- (void)addRefreshHeader{
+    self.header = [[UILabel alloc] initWithFrame:CGRectMake(0, 67, SCREENWIDTH, 30)];
+    self.header.text = @"loading";
+    self.header.backgroundColor = [UIColor blackColor];
+    self.header.textColor = [UIColor whiteColor];
+    self.header.alpha = 0.2f;
+    self.header.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:self.header];
+    self.scrollView.scrollEnabled = NO;
+//    NSLayoutConstraint *bottomContstraint = [NSLayoutConstraint constraintWithItem:self.header attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeTop multiplier:1.0 constant:0];
+//    NSLayoutConstraint *leadingContstraint = [NSLayoutConstraint constraintWithItem:self.header attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeLeading multiplier:1.0 constant:-10];
+//    NSLayoutConstraint *trailingContstraint = [NSLayoutConstraint constraintWithItem:self.header attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.scrollView attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-10];
+//    NSLayoutConstraint *heightContstraint = [NSLayoutConstraint constraintWithItem:self.header attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:40];
+//    self.header.translatesAutoresizingMaskIntoConstraints = NO;
+//    [self.header addConstraint:heightContstraint];
+//    [self.scrollView addConstraints:@[leadingContstraint, trailingContstraint, bottomContstraint]];
     
+}
+
+- (void)removeRefreshHeader{
+    self.scrollView.scrollEnabled = YES;
+    [self.header removeFromSuperview];
+}
+
+- (void)beginLoading {
+    self.getDataType = loadData;
     if (self.dataArr.count + 10 > self.skip) {
         
         self.skip += 10;
         [self getData];
     }
-    self.getDataType = loadData;
+    
     
     
     // 2.2秒后刷新表格UI
@@ -131,7 +165,6 @@
 #pragma mark 开始进入刷新状态
 - (void)headerRereshing:(UIScrollView *)scrollView
 {
-    
     
     
 }
@@ -152,8 +185,9 @@
         
         [UIView animateWithDuration:0.2f animations:^{
             
+            self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+            [self removeRefreshHeader];
         }];
-        self.scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
         // 刷新表格
         [self.scrollView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:YES];
         if (self.getDataType == refreshData) {
@@ -172,7 +206,7 @@
 -(void)setupLeftMenuButton{
     
     self.menuBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.menuBtn.frame = CGRectMake(15, 10, 30, 30);
+    self.menuBtn.frame = CGRectMake(15, 5, 30, 33);
     [self.menuBtn setBackgroundImage:[UIImage imageNamed:@"menu"] forState:UIControlStateNormal];
     [self.menuBtn addTarget:self action:@selector(leftDrawerButtonPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationController.navigationBar addSubview:self.menuBtn];
@@ -184,9 +218,7 @@
 }
 
 
--(void)doubleTap:(UITapGestureRecognizer*)gesture{
-    [self.mm_drawerController bouncePreviewForDrawerSide:MMDrawerSideLeft completion:nil];
-}
+
 
 -(void)twoFingerDoubleTap:(UITapGestureRecognizer*)gesture{
     [self.mm_drawerController bouncePreviewForDrawerSide:MMDrawerSideRight completion:nil];

@@ -10,10 +10,12 @@
 #import "UIColor+AddColor.h"
 #import "Article.h"
 #import "UIImageView+WebCache.h"
+#import "UIView+Shadow.h"
 
 @interface CellForArticle ()
 
 @property (nonatomic, strong)UIView *blueView;
+@property (nonatomic, strong) UIImageView *separatorView;
 
 @end
 
@@ -25,18 +27,23 @@
     if (self) {
   
         self.backgroundColor = [UIColor clearColor];
-        self.articleImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        self.articleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(15, 0, SCREENWIDTH - 30, 170)];
         self.articleImageView.contentMode = UIViewContentModeScaleAspectFill;
-        self.articleImageView.layer.cornerRadius = 7;
-        self.articleImageView.clipsToBounds = YES;
-        self.articleImageView.contentMode = UIViewContentModeScaleAspectFill;
+       
         [self.contentView addSubview:self.articleImageView];
+//        UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.articleImageView.bounds];
+
         
-    self.articleImageView.layer.shadowOffset = CGSizeMake(0, 0);
+//         self.articleImageView.layer.shadowPath = shadowPath.CGPath;
+                self.articleImageView.layer.cornerRadius = 7;
+//        self.articleImageView.layer.masksToBounds = NO;
+        self.articleImageView.clipsToBounds = YES;
+    self.articleImageView.layer.shadowOffset = CGSizeMake(0.f, 0.f);
     self.articleImageView.layer.shadowOpacity = 0.8;
-        self.articleImageView.layer.shadowRadius = 7;
-        
+        self.articleImageView.layer.shadowRadius = 5;
+//
     self.articleImageView.layer.shadowColor = [UIColor blackColor].CGColor;
+//        [self.articleImageView makeInsetShadowWithRadius:5.f Alpha:0.8];
         
 //        self.blueView = [[UIView alloc] initWithFrame:CGRectZero];
 //        self.blueView.backgroundColor = [UIColor lifeGreenColor];
@@ -50,6 +57,10 @@
 //        self.dateLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 //        self.dateLabel.backgroundColor = [UIColor blueColor];
 //        [self.contentView addSubview:self.dateLabel];
+        self.separatorView = [[UIImageView alloc] initWithFrame:CGRectZero];
+        self.separatorView.image = [UIImage imageNamed:@"separatorView"];
+        self.separatorView.frame = CGRectZero;
+        [self.contentView addSubview:self.separatorView];
     }
     return self;
 }
@@ -60,7 +71,7 @@
     [super setDataModel:dataModel];
     Article *article = (Article *)dataModel;
     self.titleLabel.text = article.title;
-    [self.articleImageView sd_setImageWithURL:[NSURL URLWithString:article.pic] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    [self.articleImageView sd_setImageWithURL:[NSURL URLWithString:article.picUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
 //    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 //    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
 //    NSString *dateStr = [formatter stringFromDate:article.createdAt];
@@ -70,10 +81,10 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.articleImageView.frame = CGRectMake(0, 0, self.frame.size.width, 170);
-    self.blueView.frame = CGRectMake(0, 155, self.frame.size.width, 3);
+    self.articleImageView.frame = CGRectMake(15, 10, self.frame.size.width - 30, 165);
     [self.titleLabel sizeToFit];
-    self.titleLabel.frame = CGRectMake(10, 175, self.frame.size.width - 10, 25);
+    self.titleLabel.frame = CGRectMake(15, self.articleImageView.frame.origin.y + self.articleImageView.frame.size.height + 10, self.frame.size.width - 30, 25);
+    self.separatorView.frame = CGRectMake(0, self.titleLabel.frame.origin.y + self.titleLabel.frame.size.height + 15, SCREENWIDTH, 1);
 //    self.dateLabel.frame = CGRectMake(10, 185, self.frame.size.width - 10, 20);
 }
 

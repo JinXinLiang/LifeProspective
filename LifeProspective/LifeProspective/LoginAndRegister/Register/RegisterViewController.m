@@ -58,16 +58,17 @@
 }
 - (IBAction)registerButtonAction:(id)sender {
     NSLog(@"button:%@", [self.userPhoto backgroundImageForState:UIControlStateNormal]);
+    //    if (![pwsTextField.text isEqualToString:pwsTextField1.text]) {
+    //        hud.mode = MBProgressHUDModeText;
+    //        hud.labelText = @"两次输入的密码不一样!";
+    //        [hud show:YES];
+    //        [hud hide:YES afterDelay:0.7f];
+    //        return;
+    //    }
     
     NSLog(@"user:%@", [self.userName.text dataUsingEncoding:NSUTF8StringEncoding]);
     MBProgressHUD *hud = (MBProgressHUD*)[self.view viewWithTag:kMBProgressTag];
-//    if (![pwsTextField.text isEqualToString:pwsTextField1.text]) {
-//        hud.mode = MBProgressHUDModeText;
-//        hud.labelText = @"两次输入的密码不一样!";
-//        [hud show:YES];
-//        [hud hide:YES afterDelay:0.7f];
-//        return;
-//    }
+
     UIImage *userPhoto = nil;
     if (self.hasUserPhoto) {
         userPhoto = [self.userPhoto backgroundImageForState:UIControlStateNormal];

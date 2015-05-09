@@ -27,6 +27,8 @@
 
 @property (nonatomic, strong)NSIndexPath *indexPath;
 
+@property (nonatomic, strong) UIImageView *seperater;
+
 @end
 
 @implementation LifeViewController
@@ -44,10 +46,11 @@
 //        }else{
 //            
 //        }
-        self.articleArr = [NSMutableArray array];
+        self.dataArr = [NSMutableArray array];
+        self.articleArr = self.dataArr;
         self.query = [BmobQuery queryWithClassName:@"Article"];
         [self.query orderByDescending:@"createdAt"];
-        self.query.cachePolicy = kBmobCachePolicyNetworkElseCache;
+        self.query.cachePolicy = kBmobCachePolicyCacheThenNetwork;
     }
     return self;
 }
@@ -73,17 +76,17 @@
     
     
     
-    TabView *tabView = [[TabView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, [UIScreen mainScreen].bounds.size.width, 44)];
-    [self.view addSubview:tabView];
-    
-    NSLayoutConstraint *bottomContstraint = [NSLayoutConstraint constraintWithItem:tabView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
-    NSLayoutConstraint *leadingContstraint = [NSLayoutConstraint constraintWithItem:tabView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0];
-    NSLayoutConstraint *trailingContstraint = [NSLayoutConstraint constraintWithItem:tabView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0];
-    NSLayoutConstraint *heightContstraint = [NSLayoutConstraint constraintWithItem:tabView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:44];
-    tabView.translatesAutoresizingMaskIntoConstraints = NO;
-    [tabView addConstraint:heightContstraint];
-    [self.view addConstraints:@[leadingContstraint, trailingContstraint, bottomContstraint]];
-
+//    TabView *tabView = [[TabView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 44, [UIScreen mainScreen].bounds.size.width, 44)];
+//    [self.view addSubview:tabView];
+//    
+//    NSLayoutConstraint *bottomContstraint = [NSLayoutConstraint constraintWithItem:tabView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:0];
+//    NSLayoutConstraint *leadingContstraint = [NSLayoutConstraint constraintWithItem:tabView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0];
+//    NSLayoutConstraint *trailingContstraint = [NSLayoutConstraint constraintWithItem:tabView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0];
+//    NSLayoutConstraint *heightContstraint = [NSLayoutConstraint constraintWithItem:tabView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:44];
+//    tabView.translatesAutoresizingMaskIntoConstraints = NO;
+//    [tabView addConstraint:heightContstraint];
+//    [self.view addConstraints:@[leadingContstraint, trailingContstraint, bottomContstraint]];
+    self.lifeTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     
 }
 
@@ -105,6 +108,7 @@
             }
         }
         NSLog(@"array:%@", self.articleArr);
+        [self endRefreshing];
     }];
 }
 
@@ -129,7 +133,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 210;
+    return 240;
 }
 #pragma mark - tableViewDataSource
 
@@ -145,15 +149,18 @@
     
     if (!cell) {
         cell = [CellFactory cellForModel:article];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
-
-    cell.dataModel = article;
+    if (self.articleArr.count != 0) {
+        
+        cell.dataModel = article;
+    }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+//    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     Article *article = self.articleArr[indexPath.row];
     DetailViewController *detailVC = [[DetailViewController alloc] init];
     detailVC.articleModel = article;

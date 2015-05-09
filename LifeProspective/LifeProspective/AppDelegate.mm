@@ -58,7 +58,7 @@
     // 设置左视图宽度
     [self.drawerController setMaximumLeftDrawerWidth:120];
     // 设置打开抽屉的状态为全部
-    [self.drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+//    [self.drawerController setOpenDrawerGestureModeMask:MMCloseDrawerGestureModeCustom];
     // 设置关闭抽屉的状态效果为全部
     [self.drawerController setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
     

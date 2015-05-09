@@ -10,6 +10,16 @@
 
 @implementation Article
 
-
+- (instancetype)initWithBmobObject:(BmobObject *)object
+{
+    self = [super initWithBmobObject:object];
+    if (self) {
+        BmobFile *articlePic = [object objectForKey:@"articlePic"];
+        
+        self.picUrl = articlePic.url;
+    }
+    return self;
+    
+}
 
 @end

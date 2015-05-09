@@ -192,6 +192,13 @@
     
     _bottomView                           = [[UIView alloc] initWithFrame:CGRectMake(0, bottomViewOrginY, SCREENWIDTH, 144)];
     [self.view addSubview:_bottomView];
+//    NSLayoutConstraint *bottomContstraint = [NSLayoutConstraint constraintWithItem:_bottomView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1.0 constant:100];
+//    NSLayoutConstraint *leadingContstraint = [NSLayoutConstraint constraintWithItem:_bottomView attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1.0 constant:0];
+//    NSLayoutConstraint *trailingContstraint = [NSLayoutConstraint constraintWithItem:_bottomView attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:0];
+//    NSLayoutConstraint *heightContstraint = [NSLayoutConstraint constraintWithItem:_bottomView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:144];
+//    _bottomView.translatesAutoresizingMaskIntoConstraints = NO;
+//    [_bottomView addConstraint:heightContstraint];
+//    [self.view addConstraints:@[leadingContstraint, trailingContstraint, bottomContstraint]];
 
     UIImageView *backgroundImageView      = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 44)];
     backgroundImageView.image             = [UIImage imageNamed:@"chat_db_bar"];

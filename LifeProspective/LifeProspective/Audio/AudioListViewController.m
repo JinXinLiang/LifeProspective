@@ -10,7 +10,8 @@
 #import "Audio.h"
 #import "CellFactory.h"
 #import "CellForAudio.h"
-
+#import "STKAudioPlayer.h"
+#import "SampleQueueId.h"
 
 
 @interface AudioListViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -19,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UITableView *audioTabelView;
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
 
+
 @end
 
 @implementation AudioListViewController
@@ -26,12 +28,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"准播报";
     self.listArr = [NSMutableArray array];
     self.query = [BmobQuery queryWithClassName:@"Audio"];
     [self.query orderByDescending:@"createdAt"];
-    self.query.cachePolicy = kBmobCachePolicyNetworkElseCache;
+    self.query.cachePolicy = kBmobCachePolicyCacheThenNetwork;
     self.audioTabelView.backgroundColor = [UIColor clearColor];
+//    self.audioTabelView.separatorColor = [UIColor whiteColor];
     [self setupRefreshWith:self.audioTabelView];
+    if ([self.audioTabelView respondsToSelector:@selector(setSeparatorInset:)]) {
+
+        [self.audioTabelView setSeparatorInset:UIEdgeInsetsZero];
+
+    }
+
+    if ([self.audioTabelView respondsToSelector:@selector(setLayoutMargins:)]) {
+
+        [self.audioTabelView setLayoutMargins:UIEdgeInsetsZero];
+        
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -143,7 +158,26 @@
             }
         }
         NSLog(@"array:%@", self.listArr);
+        [self endRefreshing];
     }];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+
+{
+
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+
+    }
+
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+
+    }
+
 }
 
 - (void)didReceiveMemoryWarning {

@@ -24,5 +24,6 @@ typedef enum : NSUInteger {
 - (void)getData;
 
 - (void)setupRefreshWith:(UIScrollView *)scrollView;
+- (void)endRefreshing;
 
 @end

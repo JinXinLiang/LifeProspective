@@ -108,13 +108,13 @@
         
         if (self.fromSelf) {
             [self.contentLabel setTextColor:[UIColor whiteColor]];
-            self.bubbleView.frame =  CGRectMake(320-72-(contentSize.width + 33), 11+17, contentSize.width + 33, contentSize.height + 20+17);
-            self.contentLabel.frame     = CGRectMake(self.bubbleView.frame.origin.x + 13, self.bubbleView .frame.origin.y + 8, self.bubbleView.frame.size.width - 30, self.bubbleView.frame.size.height-15);
-            self.headImageView.frame   = CGRectMake(260, self.bubbleView.frame.size.height-15, 48.0f, 48.0f);
+            self.bubbleView.frame =  CGRectMake(SCREENWIDTH -72-(contentSize.width + 33), 11+17, contentSize.width + 33, contentSize.height + 20);
+            self.contentLabel.frame     = CGRectMake(self.bubbleView.frame.origin.x + 13, self.bubbleView .frame.origin.y + 7, self.bubbleView.frame.size.width - 30, self.bubbleView.frame.size.height-15);
+            self.headImageView.frame   = CGRectMake(SCREENWIDTH - 60, self.bubbleView.frame.size.height-15, 48.0f, 48.0f);
         }else{
             [self.contentLabel setTextColor:[CommonUtil setColorByR:55 G:59 B:60]];
-            self.bubbleView.frame = CGRectMake(71, 11+17, contentSize.width + 33, contentSize.height + 20+17);
-            self.contentLabel.frame     = CGRectMake(self.bubbleView.frame.origin.x + 15, self.bubbleView.frame.origin.y + 10, self.bubbleView.frame.size.width - 30, self.bubbleView.frame.size.height-15);
+            self.bubbleView.frame = CGRectMake(71, 11+17, contentSize.width + 33, contentSize.height + 20);
+            self.contentLabel.frame     = CGRectMake(self.bubbleView.frame.origin.x + 15, self.bubbleView.frame.origin.y + 7, self.bubbleView.frame.size.width - 30, self.bubbleView.frame.size.height-15);
             self.headImageView.frame   = CGRectMake(13, self.bubbleView.frame.size.height -15 , 48.0f, 48.0f);
         }
     }
@@ -123,13 +123,13 @@
         CGSize  contentSize = CGSizeMake(120, 120);
         if (self.fromSelf) {
             [self.contentLabel setTextColor:[UIColor whiteColor]];
-            self.bubbleView.frame =  CGRectMake(320-72-(contentSize.width + 33), 11+17, contentSize.width + 33, contentSize.height + 20+17);
-            self.contentImageView.frame     = CGRectMake(self.bubbleView.frame.origin.x + 13, self.bubbleView .frame.origin.y + 18, 120, 120);
-            self.headImageView.frame   = CGRectMake(260, self.bubbleView.frame.size.height-15, 48.0f, 48.0f);
+            self.bubbleView.frame =  CGRectMake(SCREENWIDTH-72-(contentSize.width + 33), 11+17, contentSize.width + 33, contentSize.height + 10);
+            self.contentImageView.frame     = CGRectMake(self.bubbleView.frame.origin.x + 13, self.bubbleView .frame.origin.y + 5, 120, 120);
+            self.headImageView.frame   = CGRectMake(SCREENWIDTH - 60, self.bubbleView.frame.size.height-15, 48.0f, 48.0f);
         }else{
             [self.contentLabel setTextColor:[CommonUtil setColorByR:55 G:59 B:60]];
-            self.bubbleView.frame = CGRectMake(71, 11+17, contentSize.width + 33, contentSize.height + 20+17);
-            self.contentImageView.frame     = CGRectMake(self.bubbleView.frame.origin.x + 15, self.bubbleView.frame.origin.y + 18, 120, 120);
+            self.bubbleView.frame = CGRectMake(71, 11+17, contentSize.width + 33, contentSize.height + 10);
+            self.contentImageView.frame     = CGRectMake(self.bubbleView.frame.origin.x + 15, self.bubbleView.frame.origin.y + 5, 120, 120);
             self.headImageView.frame   = CGRectMake(13, self.bubbleView.frame.size.height -15 , 48.0f, 48.0f);
         }
     }

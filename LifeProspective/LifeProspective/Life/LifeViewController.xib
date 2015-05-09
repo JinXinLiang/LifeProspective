@@ -16,9 +16,9 @@
             <rect key="frame" x="0.0" y="64" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="ifj-22-hcp">
-                    <rect key="frame" x="15" y="64" width="570" height="492"/>
-                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ifj-22-hcp">
+                    <rect key="frame" x="0.0" y="70" width="600" height="530"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="RaB-Zc-t6j"/>
                         <outlet property="delegate" destination="-1" id="XzE-Ty-1V1"/>
@@ -27,10 +27,10 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="ifj-22-hcp" secondAttribute="bottom" constant="44" id="SaI-dz-ICD"/>
-                <constraint firstAttribute="trailing" secondItem="ifj-22-hcp" secondAttribute="trailing" constant="15" id="eKw-ax-O2J"/>
-                <constraint firstItem="ifj-22-hcp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="f9q-eW-dOW"/>
-                <constraint firstItem="ifj-22-hcp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="jXh-Cz-SKU"/>
+                <constraint firstAttribute="bottom" secondItem="ifj-22-hcp" secondAttribute="bottom" id="SaI-dz-ICD"/>
+                <constraint firstAttribute="trailing" secondItem="ifj-22-hcp" secondAttribute="trailing" id="eKw-ax-O2J"/>
+                <constraint firstItem="ifj-22-hcp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="70" id="f9q-eW-dOW"/>
+                <constraint firstItem="ifj-22-hcp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jXh-Cz-SKU"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
             <nil key="simulatedTopBarMetrics"/>

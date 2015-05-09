@@ -10,7 +10,7 @@
 #import "Article.h"
 #import "UIColor+AddColor.h"
 
-@interface DetailViewController ()
+@interface DetailViewController ()<UIWebViewDelegate>
 @property (strong, nonatomic) IBOutlet UIWebView *detailView;
 
 
@@ -21,7 +21,10 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    self.navigationController.hidesBarsOnSwipe = NO;
+    if (IS_iOS8) {
+        
+        self.navigationController.hidesBarsOnSwipe = NO;
+    }
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,9 +34,13 @@
     backgroundView.image = [UIImage imageNamed:@"background"];
     [self.view addSubview:backgroundView];
     [self.view sendSubviewToBack:backgroundView];
-    self.navigationController.hidesBarsOnSwipe = YES;
+    if (IS_iOS8) {
+        
+        self.navigationController.hidesBarsOnSwipe = YES;
+    }
     self.detailView.scrollView.showsVerticalScrollIndicator = NO;
     self.detailView.backgroundColor = [UIColor clearColor];
+    self.detailView.scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     self.detailView.opaque = NO;
     NSString *jsString = [NSString stringWithFormat:@"<html> \n"
                           "<head> \n"
@@ -61,6 +68,27 @@
 
 }
 
+
+- (void)webViewDidStartLoad:(UIWebView *)webView{
+    //拦截网页图片  并修改图片大小
+    [webView stringByEvaluatingJavaScriptFromString:
+     [NSString stringWithFormat:@"var script = document.createElement('script');"
+      "script.type = 'text/javascript';"
+      "script.text = \"function ResizeImages() { "
+      "var myimg,oldwidth;"
+      "var maxwidth= %f;" //缩放系数,调动这个参数可以改变图片的宽度
+      "for(i=0;i <document.images.length;i++){"
+      "myimg = document.images[i];"
+      "oldwidth = myimg.width;"
+      "myimg.width = maxwidth;"
+      "myimg.height = myimg.height;"
+      "}"
+      "}\";"
+      "document.getElementsByTagName('head')[0].appendChild(script);", [UIScreen mainScreen].bounds.size.width - 25]];
+    
+    [webView stringByEvaluatingJavaScriptFromString:@"ResizeImages();"];
+}
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     
     //拦截网页图片  并修改图片大小
@@ -77,7 +105,7 @@
       "myimg.height = myimg.height;"
       "}"
       "}\";"
-      "document.getElementsByTagName('head')[0].appendChild(script);", [UIScreen mainScreen].bounds.size.width - 15]];
+      "document.getElementsByTagName('head')[0].appendChild(script);", [UIScreen mainScreen].bounds.size.width - 25]];
     
     [webView stringByEvaluatingJavaScriptFromString:@"ResizeImages();"];
 }
