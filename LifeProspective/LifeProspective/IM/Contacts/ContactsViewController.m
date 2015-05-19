@@ -172,7 +172,7 @@
     
     BmobChatUser *user = (BmobChatUser *)[_friendsArray objectAtIndex:indexPath.row];
     if (user.avatar) {
-        [cell.avatarImageView setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"setting_head"]];
+        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:user.avatar] placeholderImage:[UIImage imageNamed:@"setting_head"]];
     }
     cell.nameLabel.text = user.username;
     cell.lineImageView.image = [UIImage imageNamed:@"common_line"];

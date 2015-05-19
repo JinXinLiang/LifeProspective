@@ -12,6 +12,8 @@
 #import "CellForAudio.h"
 #import "STKAudioPlayer.h"
 #import "SampleQueueId.h"
+#import "AudioPalyerManager.h"
+
 
 
 @interface AudioListViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -19,6 +21,7 @@
 @property (nonatomic, strong) NSMutableArray *listArr;
 @property (strong, nonatomic) IBOutlet UITableView *audioTabelView;
 @property (nonatomic, strong) NSIndexPath *selectedIndexPath;
+@property (nonatomic, strong) NSIndexPath *lastIndexPath;
 
 
 @end
@@ -29,19 +32,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"准播报";
-    self.listArr = [NSMutableArray array];
+    self.dataArr = [NSMutableArray array];
+    self.listArr = self.dataArr;
     self.query = [BmobQuery queryWithClassName:@"Audio"];
     [self.query orderByDescending:@"createdAt"];
     self.query.cachePolicy = kBmobCachePolicyCacheThenNetwork;
     self.audioTabelView.backgroundColor = [UIColor clearColor];
 //    self.audioTabelView.separatorColor = [UIColor whiteColor];
     [self setupRefreshWith:self.audioTabelView];
+    self.audioTabelView.separatorStyle = UITableViewCellSeparatorStyleNone;
     if ([self.audioTabelView respondsToSelector:@selector(setSeparatorInset:)]) {
 
         [self.audioTabelView setSeparatorInset:UIEdgeInsetsZero];
 
     }
-
+    
+    
+    self.selectedIndexPath = [AudioPalyerManager defaultPlayer].listIndexPath;
     if ([self.audioTabelView respondsToSelector:@selector(setLayoutMargins:)]) {
 
         [self.audioTabelView setLayoutMargins:UIEdgeInsetsZero];
@@ -86,16 +93,68 @@
     
     if (self.selectedIndexPath != nil) {
         CellForAudio *selectedCell = (CellForAudio *)[tableView cellForRowAtIndexPath:self.selectedIndexPath];
-        [selectedCell changeFrame:YES];
-        self.audioTabelView.scrollEnabled = YES;
-        NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:self.selectedIndexPath.row inSection:self.selectedIndexPath.section];
-        self.selectedIndexPath = nil;
-        [tableView reloadRowsAtIndexPaths:@[selectedIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+//        [tableView beginUpdates];
+        
+        [UIView animateWithDuration:0.3f animations:^{
+            
+            [selectedCell changeFrame:YES];
+            NSArray *cells = tableView.visibleCells;
+            for (UITableViewCell *otherCell in cells) {
+                NSIndexPath *otherIndexPath = [tableView indexPathForCell:otherCell];
+                if (otherIndexPath.row > self.selectedIndexPath.row) {
+                    
+                    CGRect rect = otherCell.contentView.frame;
+                    rect.origin.y -= 150;
+                    otherCell.contentView.frame = rect;
+                }
+            }
+            //        [tableView endUpdates];
+//            self.audioTabelView.scrollEnabled = YES;
+//            NSIndexPath *selectedIndexPath = [NSIndexPath indexPathForRow:self.selectedIndexPath.row inSection:self.selectedIndexPath.section];
+            self.selectedIndexPath = nil;
+            //        [tableView reloadRowsAtIndexPaths:@[selectedIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+            
+
+            
+        } completion:^(BOOL finished) {
+            [tableView reloadData];
+                    }];
     } else {
+        [AudioPalyerManager defaultPlayer].listIndexPath = indexPath;
         self.selectedIndexPath = indexPath;
-        self.audioTabelView.scrollEnabled = NO;
-        [cell changeFrame:NO];
-        [tableView reloadRowsAtIndexPaths:@[self.selectedIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+//        self.audioTabelView.scrollEnabled = NO;
+//        [tableView beginUpdates];
+//        [UIView animateWithDuration:0.3f animations:^{
+//            
+//        } completion:^(BOOL finished) {
+//            
+//        }];
+        [UIView animateWithDuration:0.3f animations:^{
+            
+            [cell changeFrame:NO];
+            NSArray *cells = tableView.visibleCells;
+            for (UITableViewCell *otherCell in cells) {
+                    NSIndexPath *otherIndexPath = [tableView indexPathForCell:otherCell];
+                    if (otherIndexPath.row > indexPath.row) {
+                        
+                        CGRect rect = otherCell.contentView.frame;
+                        rect.origin.y += 150;
+                        otherCell.contentView.frame = rect;
+                    }
+            }
+        } completion:^(BOOL finished) {
+            [tableView reloadData];
+            //        [tableView endUpdates];
+            //        NSArray *arr = [tableView indexPathsForVisibleRows];
+            //
+            //
+            //        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            //
+//            if (self.lastIndexPath.row > 3 && indexPath.row >= (self.lastIndexPath.row - 3) && indexPath.row <= self.lastIndexPath.row) {
+//                [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+//            }
+
+        }];
     }
         
 //            [tableView reloadRowsAtIndexPaths:indexPathArr withRowAnimation:UITableViewRowAnimationNone];
@@ -111,6 +170,7 @@
     
 }
 
+
 #pragma mark - tableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -120,12 +180,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    self.lastIndexPath = indexPath;
     BaseModel *audio = self.listArr[indexPath.row];
     CellForAudio *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([audio class])];
     if (!cell) {
         cell = (CellForAudio *)[CellFactory cellForModel:audio];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
-    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     if (self.selectedIndexPath) {
         
@@ -143,18 +204,25 @@
 
 - (void)getData
 {
+    
+        
     self.query.limit = self.limit;
     self.query.skip = self.skip;
+    __block NSInteger count = 1;
     [self.query findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
         if (nil != array) {
-            if (self.getDataType == refreshData) {
-                [self.listArr removeAllObjects];
-            }
-            for (BmobObject *object in array) {
-                NSLog(@"%@", object);
-                Audio *audio = [[Audio alloc] initWithBmobObject:object];
-//
-                [self.listArr addObject:audio];
+            if (1 == count) {
+                
+                if (self.getDataType == refreshData) {
+                    [self.listArr removeAllObjects];
+                }
+                for (BmobObject *object in array) {
+                    NSLog(@"%@", object);
+                    Audio *audio = [[Audio alloc] initWithBmobObject:object];
+                    //
+                    [self.listArr addObject:audio];
+                }
+                count++;
             }
         }
         NSLog(@"array:%@", self.listArr);

@@ -149,9 +149,9 @@
 
 - (void)beginLoading {
     self.getDataType = loadData;
+    self.skip += 10;
     if (self.dataArr.count + 10 > self.skip) {
         
-        self.skip += 10;
         [self getData];
     }
     

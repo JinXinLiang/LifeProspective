@@ -157,7 +157,7 @@
         cell = [[NearbyTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     NearInfo *tmpNearInfo    = (NearInfo *)[_nearMutableArray objectAtIndex:indexPath.row];
-    [cell.avatarImageView setImageWithURL:[NSURL URLWithString:tmpNearInfo.avatarString] placeholderImage:[UIImage imageNamed:@"setting_head"]];
+    [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:tmpNearInfo.avatarString] placeholderImage:[UIImage imageNamed:@"setting_head"]];
     cell.nameLabel.text      = tmpNearInfo.name;
     cell.distanceLabel.text  = tmpNearInfo.distance;
     cell.lastTimeLabel.text  = [NSString stringWithFormat:@"最后登录时间:%@",tmpNearInfo.lastTime];

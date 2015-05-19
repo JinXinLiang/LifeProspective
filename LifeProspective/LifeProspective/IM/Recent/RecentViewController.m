@@ -154,7 +154,7 @@
     BmobRecent *recent = (BmobRecent *)[_chatsArray objectAtIndex:indexPath.row];
     
     if (recent.avatar) {
-        [cell.avatarImageView setImageWithURL:[NSURL URLWithString:recent.avatar] placeholderImage:[UIImage imageNamed:@"setting_head"]];
+        [cell.avatarImageView sd_setImageWithURL:[NSURL URLWithString:recent.avatar] placeholderImage:[UIImage imageNamed:@"setting_head"]];
     }
     
     cell.nameLabel.text      = recent.targetName;

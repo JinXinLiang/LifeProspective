@@ -32,6 +32,10 @@
 
 @implementation CellForAudio
 
+- (void)dealloc{
+    [self.colorLoadView unactivate];
+}
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -92,6 +96,7 @@
        
         self.authorPhotoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(40, 10, 50, 50)];
         self.authorPhotoImageView.layer.cornerRadius = 25.f;
+        self.authorPhotoImageView.contentMode = UIViewContentModeScaleAspectFit;
         self.authorPhotoImageView.clipsToBounds = YES;
         self.authorPhotoImageView.layer.borderColor = [UIColor whiteColor].CGColor;
         self.authorPhotoImageView.layer.borderWidth = 3.f;
@@ -103,11 +108,13 @@
         self.colorLoadView.hidden = YES;
 //        self.colorLoadView.backgroundColor = [UIColor cyanColor];
         [self.authorPhotoImageView addSubview:self.colorLoadView];
+        [self.colorLoadView activate];
         
         self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 10, SCREENWIDTH - 110 - 20, 30)];
         self.titleLabel.textColor = [UIColor blackColor];
         [self.backGround addSubview:self.titleLabel];
         self.authorNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 40, SCREENWIDTH - 110 - 20, 20)];
+        self.authorNameLabel.font = [UIFont systemFontOfSize:14.f];
         self.authorNameLabel.textColor = [UIColor blackColor];
         [self.backGround addSubview:self.authorNameLabel];
         
@@ -123,28 +130,38 @@
     [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:audio.audioPhoto] placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
     
-    [self.authorPhotoImageView sd_setImageWithURL:[NSURL URLWithString:audio.authorPhoto]];
+    [self.authorPhotoImageView sd_setImageWithURL:[NSURL URLWithString:audio.authorPhoto] placeholderImage:[UIImage imageNamed:@"setting_head@2x.png"]];
     self.titleLabel.text = audio.title;
     
-    self.authorNameLabel.text = audio.authorName;
+    self.authorNameLabel.text = [NSString stringWithFormat:@"- %@", audio.authorName];
     AudioPalyerManager *player = [AudioPalyerManager defaultPlayer];
     
-    [self.playBtn setBackgroundImage:player.playing && [player.playUrl isEqualToString:audio.voiceInfo]? [UIImage imageNamed:@"stop"] : [UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+    [self.playBtn setBackgroundImage:(player.playing && ([player.playUrl isEqualToString:audio.voiceInfo] || [player.playUrl isEqualToString:audio.audioUrl]))? [UIImage imageNamed:@"stop"] : [UIImage imageNamed:@"play"] forState:UIControlStateNormal];
    
   
 }
+
 
 - (void)playBtnAction:(UIButton *)button {
     Audio *audio = (Audio *)self.dataModel;
     AudioPalyerManager *player = [AudioPalyerManager defaultPlayer];
     player.playBtn = button;
-    if (player.playing && [player.playUrl isEqualToString:audio.voiceInfo]) {
+    if (player.playing && ([player.playUrl isEqualToString:audio.voiceInfo] || [player.playUrl isEqualToString:audio.audioUrl])) {
         [player stop];
         [button setBackgroundImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
     } else {
+        NSString *urlString = nil;
+        if (audio.voiceInfo) {
+            urlString = audio.voiceInfo;
+            
+        } else {
+            urlString = audio.audioUrl;
+        }
+        if (urlString) {
         
-        [player playWithUrlString:audio.voiceInfo];
-        [button setBackgroundImage:[UIImage imageNamed:@"stop"] forState:UIControlStateNormal];
+            [player playWithUrlString:urlString];
+            [button setBackgroundImage:[UIImage imageNamed:@"stop"] forState:UIControlStateNormal];
+        }
         
     }
 }
@@ -153,7 +170,7 @@
 - (void)changeFrame:(BOOL)origin
 {
     if (origin) {
-        [UIView animateWithDuration:0.3f animations:^{
+//        [UIView animateWithDuration:0.0f animations:^{
             self.coverImageView.hidden = YES;
         
             
@@ -167,12 +184,12 @@
 //            self.whiteBackView.hidden = YES;
             self.blurView.hidden = YES;
             self.colorLoadView.hidden = YES;
-        }];
-        [self.colorLoadView unactivate];
+//        }];
+        
         
     
     } else {
-        [UIView animateWithDuration:0.3f animations:^{
+//        [UIView animateWithDuration:0.0f animations:^{
             self.coverImageView.hidden = NO;
         
             self.coverImageView.frame = CGRectMake(0, 0, SCREENWIDTH, 220);
@@ -187,8 +204,8 @@
             self.authorNameLabel.textColor = [UIColor whiteColor];
             self.colorLoadView.hidden = NO;
 
-        }];
-        [self.colorLoadView activate];
+//        }];
+        
         
     }
     

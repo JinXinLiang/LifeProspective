@@ -87,7 +87,7 @@
     [avatarImageView.layer setMasksToBounds:YES];
     [avatarImageView.layer setCornerRadius:25];
     [headView addSubview:avatarImageView];
-    [avatarImageView setImageWithURL:[NSURL URLWithString:_myNearInfo.avatarString] placeholderImage:[UIImage imageNamed:@"setting_head"]];
+    [avatarImageView sd_setImageWithURL:[NSURL URLWithString:_myNearInfo.avatarString] placeholderImage:[UIImage imageNamed:@"setting_head"]];
     
     //名字
     UILabel *nameLabel           = [[UILabel alloc] init];

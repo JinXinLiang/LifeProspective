@@ -96,16 +96,22 @@
 {
     self.query.limit = self.limit;
     self.query.skip = self.skip;
+    __block NSInteger count = 1;
     [self.query findObjectsInBackgroundWithBlock:^(NSArray *array, NSError *error) {
         if (nil != array) {
-            if (self.getDataType == refreshData) {
-                [self.articleArr removeAllObjects];
+            if (1 == count) {
+                
+                if (self.getDataType == refreshData) {
+                    [self.articleArr removeAllObjects];
+                }
+                for (BmobObject *object in array) {
+                    Article *article = [[Article alloc] initWithBmobObject:object];
+                    
+                    [self.articleArr addObject:article];
+                }
+                
             }
-            for (BmobObject *object in array) {
-                Article *article = [[Article alloc] initWithBmobObject:object];
-               
-                [self.articleArr addObject:article];
-            }
+            
         }
         NSLog(@"array:%@", self.articleArr);
         [self endRefreshing];

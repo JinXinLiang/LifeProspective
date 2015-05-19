@@ -8,7 +8,7 @@
 
 #import "ChatViewController.h"
 #import "CommonUtil.h"
-#import <SDWebImage/UIImageView+WebCache.h>
+#import <UIImageView+WebCache.h>
 #import "MBProgressHUD.h"
 #import <BmobIM/BmobDB.h>
 #import <BmobIM/BmobChatManager.h>
@@ -535,19 +535,22 @@
          cell.contentLabel.text = [CommonUtil turnStringToEmojiText:message.content];
     }else if(message.msgType == MessageTypeImage){
         cell.contentLabel.text = nil;
-        [cell.contentImageView setImageWithURL:[NSURL URLWithString:message.content] placeholderImage:[UIImage imageWithContentsOfFile:message.content]];
+        [cell.contentImageView sd_setImageWithURL:[NSURL URLWithString:message.content] placeholderImage:[UIImage imageWithContentsOfFile:message.content]];
     }else if (message.msgType == MessageTypeLocation){
-        [cell.contentImageView setImageWithURL:[NSURL URLWithString:message.content] placeholderImage:[UIImage imageNamed:@"location_default"]];
+        [cell.contentImageView sd_setImageWithURL:[NSURL URLWithString:message.content] placeholderImage:[UIImage imageNamed:@"location_default"]];
         cell.contentLabel.text = @"";
     }
     
     cell.timeLabel.text = [[NSDate dateWithTimeIntervalSince1970:[message.msgTime integerValue]] timeAgoWithLimit:kTimeLimit dateFormat:NSDateFormatterMediumStyle andTimeFormat:NSDateFormatterShortStyle];
-    [cell.headImageView setImageWithURL:[NSURL URLWithString:message.belongAvatar]
-                  placeholderImage:[UIImage imageNamed:@"setting_head"]
-                           options:SDWebImageLowPriority
-                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-                             
-                         }];
+    [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:message.belongAvatar] placeholderImage:[UIImage imageNamed:@"setting_head"] options:SDWebImageLowPriority completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+    }];
+//    [cell.headImageView setImageWithURL:[NSURL URLWithString:message.belongAvatar]
+//                  placeholderImage:[UIImage imageNamed:@"setting_head"]
+//                           options:SDWebImageLowPriority
+//                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
+//                             
+//                         }];
     return cell;
 }
 

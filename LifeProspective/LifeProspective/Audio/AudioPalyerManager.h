@@ -7,12 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "STKAudioPlayer.h"
 
 @interface AudioPalyerManager : NSObject 
 
+
+@property (nonatomic, strong)NSIndexPath *listIndexPath;
 @property (nonatomic, assign)BOOL playing;
 @property (nonatomic, copy, readonly)NSString *playUrl;
 @property (nonatomic, strong)UIButton *playBtn;
+@property (nonatomic, strong) STKAudioPlayer *player;
 
 + (AudioPalyerManager *)defaultPlayer;
 - (void)playWithUrlString:(NSString *)urlString;

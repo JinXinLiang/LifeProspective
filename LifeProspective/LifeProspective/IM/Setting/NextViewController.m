@@ -33,6 +33,7 @@
         leftBtn.showsTouchWhenHighlighted     = YES;
         [leftBtn addTarget:self action:@selector(goback) forControlEvents:UIControlEventTouchUpInside];
         [leftBtn setImage:[UIImage imageNamed:@"common_back"] forState:UIControlStateNormal];
+//        [leftBtn sd_setImage:[UIImage imageNamed:@"common_back"] forState:UIControlStateNormal];
         
         UIBarButtonItem *leftBarButtonItem    = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
         self.navigationItem.leftBarButtonItem = leftBarButtonItem;

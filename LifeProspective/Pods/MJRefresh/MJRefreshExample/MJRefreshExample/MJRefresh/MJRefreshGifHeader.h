@@ -11,5 +11,5 @@
 
 @interface MJRefreshGifHeader : MJRefreshHeader
 /** 设置state状态下的动画图片images */
-- (void)setImages:(NSArray *)images forState:(MJRefreshHeaderState)state;
+- (void)sd_setImages:(NSArray *)images forState:(MJRefreshHeaderState)state;
 @end

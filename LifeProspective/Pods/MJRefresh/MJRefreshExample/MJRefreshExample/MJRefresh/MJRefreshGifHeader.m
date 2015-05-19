@@ -115,7 +115,7 @@
     }
 }
 
-- (void)setImages:(NSArray *)images forState:(MJRefreshHeaderState)state
+- (void)sd_setImages:(NSArray *)images forState:(MJRefreshHeaderState)state
 {
     if (images == nil) return;
     

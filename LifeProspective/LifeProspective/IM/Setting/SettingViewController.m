@@ -12,6 +12,7 @@
 #import <BmobIM/BmobDB.h>
 #import "RecentTableViewCell.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import "AudioPalyerManager.h"
 
 @interface SettingViewController ()<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
     
@@ -86,6 +87,7 @@
 
 -(void)logout{
 
+    [[AudioPalyerManager defaultPlayer] stop];
     [BmobUser logout];
     [[BmobDB currentDatabase] clearAllDBCache];
     
@@ -142,35 +144,36 @@
     
     UILabel *firstLabel = (UILabel*)[cell.contentView viewWithTag:100];
     
-    firstLabel.frame = CGRectMake(13, cell.contentView.center.y-10, 40, 16);
+    firstLabel.frame = CGRectMake(13, cell.contentView.center.y-10, 200, 16);
     
     UILabel *secLabel = (UILabel*)[cell.contentView viewWithTag:101];
     
-    secLabel.frame = CGRectMake(260, cell.contentView.center.y-8, 40, 16);
+    secLabel.frame = CGRectMake(260, cell.contentView.center.y-8, 200, 16);
     
     UIImageView *avatarImageView = (UIImageView *)[cell.contentView viewWithTag:102];
 
-    
+    BmobUser *user = [BmobUser getCurrentUser];
     switch (indexPath.row) {
         case 0:{
             firstLabel.text = @"头像";
             [avatarImageView setHidden:NO];
             avatarImageView.frame = CGRectMake(SCREENWIDTH - 60, 10, 40, 40);
             
-            BmobUser *user = [BmobUser getCurrentUser];
+            
             if ([user objectForKey:@"avatar"]) {
 
-                [avatarImageView setImageWithURL:[NSURL URLWithString:[user objectForKey:@"avatar"]] placeholderImage:[UIImage imageNamed:@"setting_head"]];
+                [avatarImageView sd_setImageWithURL:[NSURL URLWithString:[user objectForKey:@"avatar"]] placeholderImage:[UIImage imageNamed:@"setting_head"]];
+
             }else
-                [avatarImageView setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"setting_head"]];
+                [avatarImageView sd_setImageWithURL:nil placeholderImage:[UIImage imageNamed:@"setting_head"]];
         }
             break;
         case 1:{
-            firstLabel.text = @"昵称";
+            firstLabel.text = [NSString stringWithFormat:@"昵称:%@", [user objectForKey:@"username"]];
         }
             break;
         case 2:{
-            firstLabel.text = @"性别";
+            firstLabel.text = @"";
         }
             
             break;

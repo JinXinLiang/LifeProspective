@@ -72,6 +72,7 @@
     Article *article = (Article *)dataModel;
     self.titleLabel.text = article.title;
     [self.articleImageView sd_setImageWithURL:[NSURL URLWithString:article.picUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
+//    [self.articleImageView sd_sd_setImageWithURL:[NSURL URLWithString:article.picUrl] placeholderImage:[UIImage imageNamed:@"placeholder"]];
 //    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 //    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
 //    NSString *dateStr = [formatter stringFromDate:article.createdAt];

@@ -25,6 +25,7 @@
 //#import <BmobSDK/BmobGPSSwitch.h>
 #import "BMapKit.h"
 //#import "CommonUtil.h"
+#import "AudioPalyerManager.h"
 
 
 @interface AppDelegate ()
@@ -43,8 +44,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-     
-    // 他的老婆；‘防城港和 v 急不可耐了吗，
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
@@ -53,8 +52,7 @@
     
     // 是否显示阴影, 否
     [self.drawerController setShowsShadow:NO];
-    
-    
+  
     // 设置左视图宽度
     [self.drawerController setMaximumLeftDrawerWidth:120];
     // 设置打开抽屉的状态为全部
@@ -87,8 +85,8 @@
     }
     
 //    [[NSUserDefaults standardUserDefaults ] setObject:[NSNumber numberWithBool:NO] forKey:@"isLogin"];
-//    
-
+//
+//    NSLog(@"save url:%@", [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject]);
     
 //    if (IS_iOS7) {
         [UIApplication sharedApplication].statusBarHidden = NO;
@@ -332,7 +330,52 @@
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     [BMKMapView willBackGround];
+    //让app支持接受远程控制事件
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
 }
+
+- (void) remoteControlReceivedWithEvent: (UIEvent *) receivedEvent {
+    if (receivedEvent.type == UIEventTypeRemoteControl) {
+        
+        switch (receivedEvent.subtype) {
+                
+//            case UIEventSubtypeRemoteControlTogglePlayPause:{
+//            
+//                [[AudioPalyerManager defaultPlayer].player resume];
+//            }
+//                break;
+//                
+//            case UIEventSubtypeRemoteControlPreviousTrack:
+//            {
+//                
+//                [[AudioPalyerManager defaultPlayer].player resume];
+//            }
+//                break;
+//                
+//            case UIEventSubtypeRemoteControlNextTrack:
+//                [self playNextSong:self.nextButton];
+//                break;
+                
+            case UIEventSubtypeRemoteControlPlay:
+            {
+                
+                [[AudioPalyerManager defaultPlayer].player resume];
+            };
+                break;
+                
+            case UIEventSubtypeRemoteControlPause:
+            {
+                
+                [[AudioPalyerManager defaultPlayer].player pause];
+            };
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
+
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
@@ -346,6 +389,8 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [BMKMapView didForeGround];
+    //让app支持接受远程控制事件
+    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

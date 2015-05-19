@@ -67,6 +67,7 @@
     animation.fromValue = [NSNumber numberWithFloat:0.0];
     animation.toValue = [NSNumber numberWithFloat:2 * M_PI];
     animation.timingFunction = [CAMediaTimingFunction functionWithName: kCAMediaTimingFunctionLinear];
+    animation.repeatCount = NSIntegerMax;
     animation.delegate = self;
     [self.colorImageView.layer addAnimation:animation forKey:@"rotationAnimation"];
     

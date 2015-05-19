@@ -18,5 +18,6 @@
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, copy) NSString *authorName;
 @property (nonatomic, copy) NSString *authorPhoto;
+@property (nonatomic, copy) NSString *audioUrl;
 
 @end
